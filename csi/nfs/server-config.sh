@@ -23,9 +23,9 @@ firewall-cmd  --reload
 # 这是 NFS 的主要配置文件。该文件是空白的，有的系统可能不存在这个文件，主要手动建立。
 # NFS的配置一般只在/etc/exports这个文件中配置即可
 cat >> /etc/exports << EOF
+/mnt/data/ 192.168.2.152(rw,async,no_root_squash)
 /mnt/data/ 192.168.2.155(rw,async,no_root_squash)
 /mnt/data/ 192.168.2.158(rw,async,no_root_squash)
-/mnt/data/ 192.168.2.160(rw,async,no_root_squash)
 /mnt/data/ 192.168.2.100(rw,async,no_root_squash)
 /mnt/data/ 192.168.2.101(rw,async,no_root_squash)
 /mnt/data/ 192.168.2.102(rw,async,no_root_squash)
@@ -38,6 +38,6 @@ systemctl status rpcbind ##先启动rpc服务
 systemctl status nfs-kernel-server #nfs
 
 # 用来察看 NFS 分享出来的目录资源
-showmount -e 192.168.2.152
+showmount -e 192.168.2.160
 
 set +x

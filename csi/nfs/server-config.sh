@@ -1,4 +1,4 @@
-#!/bin/sh
+x#!/bin/sh
 set -x
 
 apt install -y nfs-kernel-server #安装nfs服务

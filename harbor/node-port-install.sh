@@ -24,7 +24,7 @@ mkdir -p /etc/docker/certs.d/$NODE_IP:$NODE_PORT
 cp harbor-cert.pem /etc/docker/certs.d/$NODE_IP:$NODE_PORT/ca.crt
 
 # 复制ca.crt到docker客户端所在机器
-scp ca.crt root@$NODE_IP:/etc/docker/certs.d/$NODE_IP:30003/
+scp ca.crt root@$NODE_IP:/etc/docker/certs.d/$NODE_IP:$NODE_PORT/
 
 # 尝试登录
 docker login -u admin -p Harbor12345 https://$NODE_IP:$NODE_PORT

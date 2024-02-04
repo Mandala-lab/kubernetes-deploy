@@ -5,5 +5,7 @@
 # 如果发生这种情况，请再次应用清单，它应该会成功，因为 Kubernetes 将同时处理定义。
 kubectl apply -f https://gitlab.com/api/v4/projects/purelb%2Fpurelb/packages/generic/manifest/0.0.1/purelb-complete.yaml
 
+kubectl apply -f https://gitlab.com/api/v4/projects/purelb%2Fpurelb/packages/generic/manifest/0.0.1/purelb-complete.yaml
+
 # 验证安装
 kubectl get pods --namespace=purelb --output=wide

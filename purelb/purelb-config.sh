@@ -6,7 +6,7 @@ cat > purelb-ipam-l2-1.yaml <<EOF
 apiVersion: purelb.io/v1
 kind: ServiceGroup
 metadata:
-  name: ip-pool-1
+  name: default
   namespace: purelb
 spec:
   local:
@@ -15,12 +15,13 @@ spec:
       pool: '192.168.2.170-192.168.2.199'
       aggregation: default
 EOF
+kubectl apply -f purelb-ipam-l2-1.yaml
 
 cat > purelb-ipam-l2-2.yaml <<EOF
 apiVersion: purelb.io/v1
 kind: ServiceGroup
 metadata:
-  name: default
+  name: ip-pool-2
   namespace: purelb
 spec:
   local:
@@ -29,10 +30,10 @@ spec:
       pool: '192.168.2.193-192.168.2.254'
       aggregation: default
 EOF
+kubectl apply -f purelb-ipam-l2-2.yaml
 
-kubectl apply -f purelb-l2.yaml
-
-ct get sg -n purelb
+kubectl get sg -n purelb
+kubectl api-resources --api-group=purelb.io
 kubectl describe -n purelb lbnodeagent.purelb.io/default
 kubectl describe sg -n purelb
 
@@ -69,7 +70,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    purelb.io/service-group: layer2-ippool
+    purelb.io/service-group: default
   name: nginx-lb-service
   namespace: nginx-quic
 spec:
@@ -88,7 +89,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    purelb.io/service-group: layer2-ippool
+    purelb.io/service-group: default
   name: nginx-lb2-service
   namespace: nginx-quic
 spec:
@@ -107,7 +108,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    purelb.io/service-group: layer2-ippool
+    purelb.io/service-group: default
   name: nginx-lb3-service
   namespace: nginx-quic
 spec:

@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: testing-sc
+  
 spec:
   replicas: 2
   selector:
@@ -25,7 +25,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tomcat-deployment
-  namespace: testing-sc
+  
 spec:
   replicas: 2
   selector:
@@ -47,7 +47,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
-  namespace: testing-sc
+  
 spec:
   selector:
     app: nginx-pod
@@ -62,7 +62,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tomcat-service
-  namespace: testing-sc
+  
 spec:
   selector:
     app: tomcat-pod
@@ -79,7 +79,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: test-ingress
-  namespace: testing-sc
+  
 spec:
   ingressClassName: nginx
   rules:

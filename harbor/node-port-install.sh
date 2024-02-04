@@ -29,4 +29,11 @@ scp ca.crt root@$NODE_IP:/etc/docker/certs.d/$NODE_IP:$NODE_PORT/
 # 尝试登录
 docker login -u admin -p Harbor12345 https://$NODE_IP:$NODE_PORT
 
+# 如果是自签名的证书, 必须在全部节点安装证书!
+# 如果是自签名的证书, 必须在全部节点安装证书!
+# 如果是自签名的证书, 必须在全部节点安装证书!
+export CONTAINERD_CONFIG_FILE_PATH="/etc/containerd/config.toml"
+sed -i '/\[plugins\."io\.containerd\.grpc\.v1\.cri"\.registry\]/!b;n;s/config_path = .*/config_path = "\/etc\/containerd\/certs.d"/' /etc/containerd/config.toml
+cat -n /etc/containerd/config.toml | grep -A 1 "\[plugins\.\"io\.containerd\.grpc\.v1\.cri\"\.registry\]"
+
 set +x

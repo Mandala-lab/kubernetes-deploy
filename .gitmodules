@@ -1,0 +1,6 @@
+[submodule "open-telemetry/client/opentelemetry"]
+	path = open-telemetry/client/opentelemetry
+	url = git@github.com:lisa-sum/opentelemetry.git
+[submodule "open-telemetry/go-client"]
+	path = open-telemetry/go-client
+	url = git@github.com:lisa-sum/opentelemetry.git

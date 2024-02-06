@@ -4,3 +4,6 @@
 [submodule "open-telemetry/go-client"]
 	path = open-telemetry/go-client
 	url = git@github.com:lisa-sum/opentelemetry.git
+[submodule "consul/client/kratos/examples/register2"]
+	path = consul/client/kratos/examples/register2
+	url = git@github.com:lisa-sum/kratos-consul.git

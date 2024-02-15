@@ -1,0 +1,125 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-cluster-0
+  name: redis-cluster-0
+spec:
+  selector:
+    app: redis-cluster-0
+  type: NodePort
+  sessionAffinity: None
+  ports:
+    - name: redis-7111
+      port: 7111
+      targetPort: 7111
+      nodePort: 30201
+    - name: redis-17111
+      port: 17111
+      targetPort: 17111
+      nodePort: 30211
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-cluster-1
+  name: redis-cluster-1
+spec:
+  selector:
+    app: redis-cluster-1
+  type: NodePort
+  sessionAffinity: None
+  ports:
+    - name: redis-7112
+      port: 7112
+      targetPort: 7112
+      nodePort: 30202
+    - name: redis-17112
+      port: 17112
+      targetPort: 17112
+      nodePort: 30212
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-cluster-2
+  name: redis-cluster-2
+spec:
+  selector:
+    app: redis-cluster-2
+  type: NodePort
+  sessionAffinity: None
+  ports:
+    - name: redis-7113
+      port: 7113
+      targetPort: 7113
+      nodePort: 30203
+    - name: redis-17113
+      port: 17113
+      targetPort: 17113
+      nodePort: 30213
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-cluster-3
+  name: redis-cluster-3
+spec:
+  selector:
+    app: redis-cluster-3
+  type: NodePort
+  sessionAffinity: None
+  ports:
+    - name: redis-7114
+      port: 7114
+      targetPort: 7114
+      nodePort: 30204
+    - name: redis-17114
+      port: 17114
+      targetPort: 17114
+      nodePort: 30214
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-cluster-4
+  name: redis-cluster-4
+spec:
+  selector:
+    app: redis-cluster-4
+  type: NodePort
+  sessionAffinity: None
+  ports:
+    - name: redis-7115
+      port: 7115
+      targetPort: 7115
+      nodePort: 30205
+    - name: redis-17115
+      port: 17115
+      targetPort: 17115
+      nodePort: 30215
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-cluster-5
+  name: redis-cluster-5
+spec:
+  selector:
+    app: redis-cluster-5
+  type: NodePort
+  sessionAffinity: None
+  ports:
+    - name: redis-7116
+      port: 7116
+      targetPort: 7116
+      nodePort: 30206
+    - name: redis-17116
+      port: 17116
+      targetPort: 17116
+      nodePort: 30216

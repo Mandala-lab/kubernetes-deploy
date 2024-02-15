@@ -11,7 +11,8 @@ import (
 )
 
 const ID = "1"
-const SERVER_NAME = "HOPE_MADP_AUTH"
+const REGISTER_SERVER_NAME = "test.service.register"
+const SERVER_NAME = "microservice-shop.service.account"
 
 var TAGS = []string{"video"}
 
@@ -67,7 +68,7 @@ func registerService(client *consul.Client) error {
 	// 创建服务注册信息
 	reg := &consul.AgentServiceRegistration{
 		ID:      ID,
-		Name:    SERVER_NAME,
+		Name:    REGISTER_SERVER_NAME,
 		Tags:    TAGS,
 		Address: HOST,
 		Port:    PORT,
@@ -104,12 +105,14 @@ func discoverService(client *consul.Client, serviceName string) (*consul.AgentSe
 func callService(service *consul.AgentService) {
 	// 调用发现的服务
 	fmt.Printf("调用服务: %s\n", service.Service)
+
 	resp, err := http.Get(fmt.Sprintf("http://%s:%d", service.Address, service.Port))
 	if err != nil {
 		log.Fatal("服务调用失败:", err)
 	}
 	defer resp.Body.Close()
 	fmt.Println("服务调用成功")
+
 }
 func waitForSignal() {
 	// 等待信号以进行优雅关闭

@@ -14,7 +14,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-lb
-  namespace: nginx-quic
+
 spec:
   selector:
     matchLabels:
@@ -38,7 +38,7 @@ metadata:
   annotations:
     purelb.io/service-group: layer2-ippool
   name: nginx-lb-service
-  namespace: nginx-quic
+
 spec:
   allocateLoadBalancerNodePorts: false
   externalTrafficPolicy: Cluster
@@ -57,7 +57,7 @@ metadata:
   annotations:
     purelb.io/service-group: layer2-ippool
   name: nginx-lb2-service
-  namespace: nginx-quic
+
 spec:
   allocateLoadBalancerNodePorts: false
   externalTrafficPolicy: Cluster
@@ -76,7 +76,6 @@ metadata:
   annotations:
     purelb.io/service-group: layer2-ippool
   name: nginx-lb3-service
-  namespace: nginx-quic
 spec:
   allocateLoadBalancerNodePorts: false
   externalTrafficPolicy: Cluster

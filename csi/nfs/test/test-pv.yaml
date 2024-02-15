@@ -12,4 +12,4 @@ spec:
   storageClassName: nfs-csi
   nfs:
     path: /mnt/data/  # NFS共享的路径
-    server: 192.168.2.152  # NFS服务器地址
+    server: 192.168.2.160  # NFS服务器地址

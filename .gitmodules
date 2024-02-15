@@ -7,3 +7,6 @@
 [submodule "consul/client/kratos/examples/register2"]
 	path = consul/client/kratos/examples/register2
 	url = git@github.com:lisa-sum/kratos-consul.git
+[submodule "argo/example/gitops-argo"]
+	path = argo/example/gitops-argo
+	url = git@github.com:lisa-sum/gitops-argo.git

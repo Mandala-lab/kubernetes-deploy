@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis-cluster-0
+  name: redis-cluster-0
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-cluster-0
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: redis-cluster-0
+    spec:
+      volumes:
+        - name: redis-data
+          hostPath:
+            path: /var/lib/docker/redis/cluster
+            type: DirectoryOrCreate
+        - name: redis-config
+          configMap:
+            name: redis-cluster-config
+        - name: timezone
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Shanghai
+      initContainers:
+        - name: init-0
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          command: [ "sysctl", "-w", "net.core.somaxconn=511" ]
+          securityContext:
+            privileged: true
+        - name: init-1
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          command: [ "sh", "-c", "echo never > /sys/kernel/mm/transparent_hugepage/enabled" ]
+          securityContext:
+            privileged: true
+      containers:
+        - name: redis
+          image: redis:6.0.8
+          imagePullPolicy: IfNotPresent
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
+            - name: redis-config
+              mountPath: /usr/local/etc/redis/
+          ports:
+            - name: redis
+              containerPort: 7111
+              protocol: TCP
+            - name: election
+              containerPort: 17111
+              protocol: TCP
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: TZ
+              value: "Asia/Shanghai"
+          command: [ "redis-server" ,"/usr/local/etc/redis/redis-cluster-0.conf" ]
+          args:
+            - "--cluster-announce-ip"
+            - "$(POD_IP)"

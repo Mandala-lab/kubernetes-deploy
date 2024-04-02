@@ -10,6 +10,9 @@ cd /home/kubernetes/elasticsearch/filebeat
 
 kubectl create ns elk
 
+crictl pull elastic/filebeat:8.13.1
+crictl pull elastic/logstash:8.13.1
+
 # rbac.yaml：创建filebeat用户和filebeat角色，并授予filebeat角色获取集群资源权限，并绑定角色与权限。
 kubectl apply -f ./templates/rbac.yaml
 

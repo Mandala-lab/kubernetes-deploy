@@ -17,7 +17,8 @@ spec:
       securityContext:
         runAsUser: 0
       containers:
-        - image: harbor.local.com/elk/logstash:v8.9.1
+        #- image: harbor.local.com/elk/logstash:v8.9.1
+        - image: elastic/logstash:8.13.1
           name: logstash-pod
           resources:
             limits:

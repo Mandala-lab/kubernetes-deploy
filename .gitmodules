@@ -16,3 +16,6 @@
 [submodule "kafka/helm/strimzi-kafka"]
 	path = kafka/helm/strimzi-kafka
 	url = git@github.com:sunmery/strimzi-kafka.git
+[submodule "kafka/helm/--force"]
+	path = kafka/helm/--force
+	url = git@github.com:sunmery/strimzi-kafka.git

@@ -1,3 +1,3 @@
-helm uninstall elasticsearch
-helm uninstall logstash
-helm uninstall kibana
+helm uninstall elasticsearch -n elk
+helm uninstall logstash -n elk
+helm uninstall kibana -n elk

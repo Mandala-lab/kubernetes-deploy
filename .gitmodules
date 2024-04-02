@@ -10,3 +10,9 @@
 [submodule "argo/example/gitops-argo"]
 	path = argo/example/gitops-argo
 	url = git@github.com:lisa-sum/gitops-argo.git
+[submodule "kafka/helm/confluent-kafka-go"]
+	path = kafka/helm/confluent-kafka-go
+	url = https://github.com/sunmery/confluent-kafka-go.git
+[submodule "kafka/helm/strimzi-kafka"]
+	path = kafka/helm/strimzi-kafka
+	url = git@github.com:sunmery/strimzi-kafka.git

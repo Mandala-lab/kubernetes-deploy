@@ -1,51 +1,110 @@
-# Kratos Project Template
+1. 定义Consul配置
+   `configs/register.yaml`
 
-## Install Kratos
-```
-go install github.com/go-kratos/kratos/cmd/kratos/v2@latest
-```
-## Create a service
-```
-# Create a template project
-kratos new server
+```yml
+consul:
+  address: 192.168.0.158
+  schema: http
+  health_check: false
 
-cd server
-# Add a proto template
-kratos proto add api/server/server.proto
-# Generate the proto code
-kratos proto client api/server/server.proto
-# Generate the source code of service by proto file
-kratos proto server api/server/server.proto -t internal/service
-
-go generate ./...
-go build -o ./bin/ ./...
-./bin/server -conf ./configs
-```
-## Generate other auxiliary files by Makefile
-```
-# Download and update dependencies
-make init
-# Generate API files (include: pb.go, http, grpc, validate, swagger) by proto file
-make api
-# Generate all files
-make all
-```
-## Automated Initialization (wire)
-```
-# install wire
-go get github.com/google/wire/cmd/wire
-
-# generate wire
-cd cmd/server
-wire
 ```
 
-## Docker
-```bash
-# build
-docker build -t <your-docker-image-name> .
+2. conf层添加consul配置之后重新生成conf配置:`make config`
+   `conf/conf.proto`
 
-# run
-docker run --rm -p 8000:8000 -p 9000:9000 -v </path/to/your/configs>:/data/conf <your-docker-image-name>
+```proto
+message Server {
+  message HTTP {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  
+  message Consul {
+    string addr = 1;
+    string schema = 2;
+    bool healthChech = 3;
+  }
+
+  HTTP http = 1;
+  GRPC grpc = 2;
+  Consul consul = 3;
+}
 ```
 
+3. server层定义:
+   `server/register.go`
+
+```go
+package server
+
+import (
+	"github.com/go-kratos/kratos/contrib/registry/consul/v2"
+	"github.com/go-kratos/kratos/v2/registry"
+	consulAPI "github.com/hashicorp/consul/api"
+	"kratos-casbin/app/admin/internal/conf"
+)
+
+func NewRegistrar(conf *conf.Registry) registry.Registrar {
+	c := consulAPI.DefaultConfig()
+	c.Address = conf.Consul.Address
+	c.Scheme = conf.Consul.Scheme
+	cli, err := consulAPI.NewClient(c)
+	if err != nil {
+		panic(err)
+	}
+	r := consul.New(cli, consul.WithHealthCheck(conf.Consul.HealthCheck))
+	return r
+}
+
+```
+
+4. 注入依赖之后重新生成wire: `make generate`
+   `server/server.go`
+
+```go
+package server
+
+import (
+	"github.com/google/wire"
+)
+
+// ProviderSet is server providers.
+var ProviderSet = wire.NewSet(NewHTTPServer, NewRegistrar)
+
+```
+
+5. 注入口添加配置
+   `cmd/xxx/main.go`
+
+```go
+func newApp(
+logger log.Logger,
+gs *grpc.Server,
+hs *http.Server,
+reg registry.Registrar, // 从server层作为依赖注入
+) *kratos.App {
+return kratos.New(
+kratos.ID(id),
+kratos.Name(Name),
+kratos.Version(Version),
+kratos.Metadata(map[string]string{}),
+kratos.Logger(logger),
+kratos.Server(
+gs,
+hs,
+),
+kratos.Registrar(reg), // 注册到Consul
+)
+}
+```
+
+## 参考
+
+1. https://github.com/lisa-sum/kratos-consul
+2. https://go-kratos.dev/docs/component/registry/

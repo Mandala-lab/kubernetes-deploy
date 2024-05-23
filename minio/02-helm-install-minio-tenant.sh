@@ -60,8 +60,8 @@ spec:
 EOF
 kubectl apply -f minio-$TENANT_NAME-pv.yaml
 
- Username: YeNGc1UywoHdao4y
-  Password: F0ckFLQpwJ7q0mCOhtXY9gqYdkfHZobV
-  Note: Copy the credentials to a secure location. MinIO will not display these again
+# Username: YeNGc1UywoHdao4y
+# Password: F0ckFLQpwJ7q0mCOhtXY9gqYdkfHZobV
+# Note: Copy the credentials to a secure location. MinIO will not display these again
 
 set +x

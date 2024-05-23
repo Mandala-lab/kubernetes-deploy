@@ -4,13 +4,13 @@
 
 ### Observability
 
-1. Prometheus
-2. Grafana Loki
-3. fluentd(观望中)
-4. Jaeger
-5. OpenTelemetry
-6. ELK/EFK
-7. Kiali
+1. Prometheus: 采集与查询应用/数据库指标
+2. Grafana Loki: 采集日志
+3. fluentd(观望中): 采集日志
+4. Jaeger: HTTP/RPC链路跟踪
+5. OpenTelemetry: 可观测性集合
+6. ELK/EFK: 分析/量化/查询
+7. Kiali: 应用链路图
 
 ### Chaos Engineering
 

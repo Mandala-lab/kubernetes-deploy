@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -x
-VERSION="1.20"
+VERSION="1.22"
 wget https://raw.githubusercontent.com/istio/istio/release-${VERSION}/samples/addons/jaeger.yaml
 sed -i 's/ClusterIP/NodePort/g' jaeger.yaml
 kubectl apply -f jaeger.yaml

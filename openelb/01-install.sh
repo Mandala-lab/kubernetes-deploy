@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+kubectl create ns openelb-system
 kubectl apply -f https://raw.githubusercontent.com/openelb/openelb/master/deploy/openelb.yaml
 
 # 执行以下命令，查看状态是否 openelb-manager 为READY： 1/1和STATUS： Running。如果是，则表示OpenELB安装成功

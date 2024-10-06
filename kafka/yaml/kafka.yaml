@@ -2,7 +2,7 @@ apiVersion: apps/v1                # Kubernetes API版本
 kind: Deployment                   # 部署资源类型
 metadata:
   name: kafka-ui-deployment         # Deployment的名称
-  namespace: kafka-ui               # 命名空间
+  namespace: kafka               # 命名空间
   labels:
     app: kafka-ui                   # 标签以标识此Deployment属于kafka-ui应用
 spec:
@@ -22,7 +22,7 @@ spec:
             - name: KAFKA_CLUSTERS_0_NAME         # Kafka集群0的名称变量
               value: "K8 Kafka Cluster"           # 注意：请自定义名称
             - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS   #Kafka集群的服务器地址变量
-              value: kafka-1.kafka.svc.cluster.local:9092 #注意：需根据自身情况填写此Kafka访问地址
+              value: my-cluster-kafka-brokers.kafka.svc.cluster.local:9092 #注意：需根据自身情况填写此Kafka访问地址
           imagePullPolicy: Always        # 总是拉取最新的容器映像
           resources:
             requests:
@@ -38,7 +38,7 @@ apiVersion: v1                      # Kubernetes API版本
 kind: Service                      # 服务资源类型
 metadata:
   name: kafka-ui-service            # 服务的名称
-  namespace: kafka-ui
+  namespace: kafka
 spec:
   selector:
     app: kafka-ui                   # 选择与此标签匹配的Pod作为服务的后端

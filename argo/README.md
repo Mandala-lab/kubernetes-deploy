@@ -3,7 +3,7 @@
 推荐使用OLM安装一个帮助管理集群上运行的 Operator 的工具
 
 ```shell
-curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.27.0/install.sh | bash -s v0.27.0
+curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.28.0/install.sh | bash -s v0.28.0
 ```
 
 https://github.com/argoproj-labs/argocd-operator/releases/tag

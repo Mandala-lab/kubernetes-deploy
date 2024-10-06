@@ -3,7 +3,7 @@ set -x
 
 apt install nfs-common -y
 
-export SERVER_HOST="192.168.2.160"
+export SERVER_HOST="192.168.3.100"
 
 cat >> /etc/fstab << EOF
 $SERVER_HOST:/mnt/data  /mnt/data       nfs    defaults 0 0

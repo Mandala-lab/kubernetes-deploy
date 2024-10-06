@@ -2,9 +2,18 @@
 # 启用 POSIX 模式并设置严格的错误处理机制
 set -o posix errexit -o pipefail
 
-# https://github.com/argoproj-labs/argocd-operator/releases/tag
-VERSION="v0.9.1"
+# https://github.com/argoproj-labs/argocd-operator/releases
+export VERSION="v0.12.0"
 wget https://github.com/argoproj-labs/argocd-operator/archive/refs/tags/${VERSION}.zip
+
+apt install -y unzip
+unzip ${VERSION}.zip
+
+cd argocd-operator-v${VERSION} || exit
+
+# OLM
+OLM_version=v0.28.0
+curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/${OLM_version}/install.sh | bash -s ${OLM_version}
 
 # 安装操作员, 此 Operator 将安装在 “operators” 命名空间中，并可从集群中的所有命名空间中使用
 kubectl create -f https://operatorhub.io/install/argocd-operator.yaml
@@ -20,11 +29,12 @@ kubectl create -f argocd-deploy.yaml -n $ns
 #     accounts.admin: "apiKey, login"
 
 # 获取密码
-pwd=$(kubectl -n $ns get secret example-argocd-cluster -o jsonpath='{.data.admin\.password}' | base64 -d)
+echo "将default-argocd替换成你的argocd的名称"
+pwd=$(kubectl -n $ns get secret default-argocd-cluster -o jsonpath='{.data.admin\.password}' | base64 -d)
 # tVEO1vRShlfkWysUCuKTw432oXzmB7ZN
 
 # CLI登录
-# 可选:
+# $lb_ip:port: ip与端口
 # --insecure: 忽略TLS验证
 # --grpc-web
 lb_ip=$(kubectl get service example-argocd-server -o=jsonpath='{.status.loadBalancer.ingress[0].ip}' -n $ns)
@@ -52,8 +62,10 @@ argocd proj create frontend
 # 添加仓库到项目
 #  argocd proj add-source <PROJECT> <REPO>
 argocd proj add-source frontend https://gitlab.com/lookeke/full-stack-engineering.git
+
 # 删除
 # argocd proj remove-source <PROJECT> <REPO>
+
 # 排除项目
 # argocd proj add-source <PROJECT> !<REPO>
 

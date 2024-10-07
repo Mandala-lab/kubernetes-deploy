@@ -13,9 +13,11 @@ wget https://charts.bitnami.com/bitnami/postgresql-${VERSION}.tgz
 # https://github.com/bitnami/charts/tree/main/bitnami/postgresql#parameters
 
 helm install postgres . \
+  --create-namespace postgres \
   --set global.postgresql.auth.username="postgres" \
   --set global.postgresql.auth.password="postgres" \
   --set global.postgresql.auth.database="simplebank" \
-  --set global.postgresql.service.ports.postgresql="5432" \
   --set persistence.existingClaim=postgresql-pvc-claim \
-  --set volumePermissions.enabled=true
+  --set volumePermissions.enabled=true \
+  --set global.postgresql.service.ports.postgresql="5432" \
+  --set primary.service.type=LoadBalancer

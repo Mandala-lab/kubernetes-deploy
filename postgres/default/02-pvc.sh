@@ -13,7 +13,7 @@ spec:
   storageClassName: nfs-csi
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi
 
 EOF
 

@@ -141,7 +141,7 @@ EOF
 
 # 测试连通
 
-curl http://
+curl http://GatewayIP:PROT/foo -H 'host: foo.bar.com'
 
 # https://github.com/alibaba/higress/blob/main/samples/gateway-api/demo.yaml
 cat > demo.yaml <<EOF

@@ -8,82 +8,82 @@ metadata:
     {{- include "argo-cd.labels" (dict "context" . "component" .Values.applicationSet.name "name" .Values.applicationSet.name) | nindent 4 }}
 rules:
   - apiGroups:
-    - argoproj.io
+      - argoproj.io
     resources:
-    - applications
-    - applicationsets
-    - applicationsets/finalizers
+      - applications
+      - applicationsets
+      - applicationsets/finalizers
     verbs:
-    - create
-    - delete
-    - get
-    - list
-    - patch
-    - update
-    - watch
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
   - apiGroups:
-    - argoproj.io
+      - argoproj.io
     resources:
-    - applicationsets/status
+      - applicationsets/status
     verbs:
-    - get
-    - patch
-    - update
+      - get
+      - patch
+      - update
   - apiGroups:
-    - argoproj.io
+      - argoproj.io
     resources:
-    - appprojects
+      - appprojects
     verbs:
-    - get
+      - get
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - events
+      - events
     verbs:
-    - create
-    - get
-    - list
-    - patch
-    - watch
+      - create
+      - get
+      - list
+      - patch
+      - watch
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - configmaps
+      - configmaps
     verbs:
-    - create
-    - update
-    - delete
-    - get
-    - list
-    - patch
-    - watch
+      - create
+      - update
+      - delete
+      - get
+      - list
+      - patch
+      - watch
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - secrets
+      - secrets
     verbs:
-    - get
-    - list
-    - watch
+      - get
+      - list
+      - watch
   - apiGroups:
-    - apps
-    - extensions
+      - apps
+      - extensions
     resources:
-    - deployments
+      - deployments
     verbs:
-    - get
-    - list
-    - watch
+      - get
+      - list
+      - watch
   - apiGroups:
-    - coordination.k8s.io
+      - coordination.k8s.io
     resources:
-    - leases
+      - leases
     verbs:
-    - create
-    - delete
-    - get
-    - list
-    - patch
-    - update
-    - watch
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
 {{- end }}

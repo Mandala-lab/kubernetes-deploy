@@ -1,10 +1,10 @@
-import "./App.css";
-import AppBar from "./routes/AppBar.tsx";
+import './App.css'
+import AppBar from './routes/AppBar.tsx'
 
 function App() {
-  return (
-   <AppBar/>
-  );
+	return (
+		<AppBar />
+	)
 }
 
-export default App;
+export default App

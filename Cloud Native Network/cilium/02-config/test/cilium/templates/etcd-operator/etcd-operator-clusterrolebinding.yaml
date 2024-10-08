@@ -14,7 +14,7 @@ roleRef:
   kind: ClusterRole
   name: etcd-operator
 subjects:
-- kind: ServiceAccount
-  name: cilium-etcd-sa
-  namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: cilium-etcd-sa
+    namespace: {{ .Release.Namespace }}
 {{- end }}

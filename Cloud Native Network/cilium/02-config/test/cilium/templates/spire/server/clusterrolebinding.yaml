@@ -12,7 +12,7 @@ roleRef:
   name: spire-server
   apiGroup: rbac.authorization.k8s.io
 subjects:
-- kind: ServiceAccount
-  name: {{ .Values.authentication.mutual.spire.install.server.serviceAccount.name }}
-  namespace: {{ .Values.authentication.mutual.spire.install.namespace }}
+  - kind: ServiceAccount
+    name: {{ .Values.authentication.mutual.spire.install.server.serviceAccount.name }}
+    namespace: {{ .Values.authentication.mutual.spire.install.namespace }}
 {{- end }}

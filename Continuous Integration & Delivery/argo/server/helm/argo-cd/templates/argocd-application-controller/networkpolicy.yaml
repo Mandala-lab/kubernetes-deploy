@@ -8,13 +8,13 @@ metadata:
   namespace: {{ .Release.Namespace | quote }}
 spec:
   ingress:
-  - from:
-    - namespaceSelector: {}
-    ports:
-    - port: metrics
+    - from:
+        - namespaceSelector: { }
+      ports:
+        - port: metrics
   podSelector:
     matchLabels:
       {{- include "argo-cd.selectorLabels" (dict "context" . "name" .Values.controller.name) | nindent 6 }}
   policyTypes:
-  - Ingress
+    - Ingress
 {{- end }}

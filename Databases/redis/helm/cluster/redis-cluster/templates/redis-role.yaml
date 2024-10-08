@@ -15,9 +15,9 @@ metadata:
   {{- end }}
 rules:
   {{- if and (include "common.capabilities.psp.supported" .) .Values.podSecurityPolicy.create }}
-  - apiGroups: ['{{ template "podSecurityPolicy.apiGroup" . }}']
-    resources: ['podsecuritypolicies']
-    verbs: ['use']
+  - apiGroups: [ '{{ template "podSecurityPolicy.apiGroup" . }}' ]
+    resources: [ 'podsecuritypolicies' ]
+    verbs: [ 'use' ]
     resourceNames: [{{ template "common.names.fullname" . }}]
 {{- end -}}
 {{- if .Values.rbac.role.rules }}

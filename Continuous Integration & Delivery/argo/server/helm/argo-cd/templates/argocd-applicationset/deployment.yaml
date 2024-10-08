@@ -63,9 +63,9 @@ spec:
           imagePullPolicy: {{ default .Values.global.image.imagePullPolicy .Values.applicationSet.image.imagePullPolicy }}
           args:
             - /usr/local/bin/argocd-applicationset-controller
-            - --metrics-addr=:{{ .Values.applicationSet.containerPorts.metrics }}
-            - --probe-addr=:{{ .Values.applicationSet.containerPorts.probe }}
-            - --webhook-addr=:{{ .Values.applicationSet.containerPorts.webhook }}
+            - --metrics-addr=: {{ .Values.applicationSet.containerPorts.metrics }}
+            - --probe-addr=: {{ .Values.applicationSet.containerPorts.probe }}
+            - --webhook-addr=: {{ .Values.applicationSet.containerPorts.webhook }}
             {{- with .Values.applicationSet.extraArgs }}
               {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -281,10 +281,10 @@ spec:
       {{- with .Values.applicationSet.topologySpreadConstraints | default .Values.global.topologySpreadConstraints }}
       topologySpreadConstraints:
         {{- range $constraint := . }}
-      - {{ toYaml $constraint | nindent 8 | trim }}
+        - {{ toYaml $constraint | nindent 8 | trim }}
           {{- if not $constraint.labelSelector }}
-        labelSelector:
-          matchLabels:
+          labelSelector:
+            matchLabels:
             {{- include "argo-cd.selectorLabels" (dict "context" $ "name" $.Values.applicationSet.name) | nindent 12 }}
           {{- end }}
         {{- end }}
@@ -307,14 +307,14 @@ spec:
           emptyDir:
             sizeLimit: {{ .Values.applicationSet.emptyDir.sizeLimit }}
           {{- else }}
-          emptyDir: {}
+          emptyDir: { }
           {{- end }}
         - name: tmp
           {{- if .Values.applicationSet.emptyDir.sizeLimit }}
           emptyDir:
             sizeLimit: {{ .Values.applicationSet.emptyDir.sizeLimit }}
           {{- else }}
-          emptyDir: {}
+          emptyDir: { }
           {{- end }}
         - name: argocd-repo-server-tls
           secret:

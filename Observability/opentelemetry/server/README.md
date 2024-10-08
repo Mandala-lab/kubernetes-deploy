@@ -70,6 +70,7 @@ Kubernetes的部署有yaml和helm和kubernetes operator部署方式,
 yaml仅适合快速开发的目的, 并不适合生产, 推荐使用helm或者kubernetes operator方式部署, 本文使用operator部署方式
 
 一键安装脚本, 支持sh的服务器即可运行:
+
 ```shell
 chmod +x ./operator/install.sh
 ./operator/install.sh
@@ -79,7 +80,6 @@ chmod +x ./operator/install.sh
 
 1. 正常运行的Kubernetes集群
 2. 拥有创建命名空间, 部署资源的RBAC权限的用户
-
 
 ### Docker
 

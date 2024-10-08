@@ -8,25 +8,25 @@ metadata:
   namespace: {{ .Release.Namespace | quote }}
 spec:
   ingress:
-  - from:
-    - podSelector:
-        matchLabels:
+    - from:
+        - podSelector:
+            matchLabels:
           {{- include "argo-cd.selectorLabels" (dict "context" . "name" .Values.server.name) | nindent 10 }}
-    ports:
-    - port: http
-      protocol: TCP
-    - port: grpc
-      protocol: TCP
+      ports:
+        - port: http
+          protocol: TCP
+        - port: grpc
+          protocol: TCP
   {{- if .Values.dex.metrics.enabled }}
-  - from:
-    - namespaceSelector: {}
-    ports:
-    - port: metrics
-      protocol: TCP
+    - from:
+        - namespaceSelector: { }
+      ports:
+        - port: metrics
+          protocol: TCP
   {{- end }}
   podSelector:
     matchLabels:
       {{- include "argo-cd.selectorLabels" (dict "context" . "name" .Values.dex.name) | nindent 6 }}
   policyTypes:
-  - Ingress
+    - Ingress
 {{- end }}

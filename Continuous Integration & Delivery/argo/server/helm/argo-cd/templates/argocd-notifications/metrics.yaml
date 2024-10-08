@@ -27,8 +27,8 @@ spec:
   selector:
     {{- include "argo-cd.selectorLabels" (dict "context" . "name" .Values.notifications.name) | nindent 6 }}
   ports:
-  - name: {{ .Values.notifications.metrics.service.portName }}
-    protocol: TCP
-    port: {{ .Values.notifications.metrics.port }}
-    targetPort: metrics
+    - name: {{ .Values.notifications.metrics.service.portName }}
+      protocol: TCP
+      port: {{ .Values.notifications.metrics.port }}
+      targetPort: metrics
 {{- end }}

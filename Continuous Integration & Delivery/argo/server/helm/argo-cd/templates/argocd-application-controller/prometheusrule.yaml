@@ -18,7 +18,7 @@ metadata:
   {{- end }}
 spec:
   groups:
-  - name: argocd
-    rules:
+    - name: argocd
+      rules:
 {{- toYaml .Values.controller.metrics.rules.spec | nindent 4 }}
 {{- end }}

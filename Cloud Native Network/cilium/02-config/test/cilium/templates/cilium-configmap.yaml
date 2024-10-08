@@ -444,11 +444,11 @@ data:
   cluster-id: "{{ .Values.cluster.id }}"
 {{- end }}
 
-  # Encapsulation mode for communication between nodes
-  # Possible values:
-  #   - disabled
-  #   - vxlan (default)
-  #   - geneve
+    # Encapsulation mode for communication between nodes
+    # Possible values:
+    #   - disabled
+    #   - vxlan (default)
+    #   - geneve
 {{- if .Values.gke.enabled }}
   {{- if ne (.Values.routingMode | default "native") "native" }}
     {{- fail (printf "RoutingMode must be set to native when gke.enabled=true" )}}
@@ -1233,8 +1233,8 @@ data:
   max-connected-clusters: {{ .Values.clustermesh.maxConnectedClusters | quote }}
 {{- end }}
 
-# Extra config allows adding arbitrary properties to the cilium config.
-# By putting it at the end of the ConfigMap, it's also possible to override existing properties.
+  # Extra config allows adding arbitrary properties to the cilium config.
+  # By putting it at the end of the ConfigMap, it's also possible to override existing properties.
 {{- if .Values.extraConfig }}
   {{ toYaml .Values.extraConfig | nindent 2 }}
 {{- end }}

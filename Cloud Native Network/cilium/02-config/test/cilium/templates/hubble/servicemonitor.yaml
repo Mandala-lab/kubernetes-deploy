@@ -24,18 +24,18 @@ spec:
       k8s-app: hubble
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace }}
+      - {{ .Release.Namespace }}
   endpoints:
-  - port: hubble-metrics
-    interval: {{ .Values.hubble.metrics.serviceMonitor.interval | quote }}
-    honorLabels: true
-    path: /metrics
+    - port: hubble-metrics
+      interval: {{ .Values.hubble.metrics.serviceMonitor.interval | quote }}
+      honorLabels: true
+      path: /metrics
     {{- with .Values.hubble.metrics.serviceMonitor.relabelings }}
-    relabelings:
+      relabelings:
     {{- toYaml . | nindent 4 }}
     {{- end }}
     {{- with .Values.hubble.metrics.serviceMonitor.metricRelabelings }}
-    metricRelabelings:
+      metricRelabelings:
     {{- toYaml . | nindent 4 }}
     {{- end }}
 {{- if .Values.hubble.metrics.serviceMonitor.jobLabel }}

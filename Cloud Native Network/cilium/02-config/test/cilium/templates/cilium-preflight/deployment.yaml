@@ -39,25 +39,25 @@ spec:
         - name: cnp-validator
           image: {{ include "cilium.image" .Values.preflight.image | quote }}
           imagePullPolicy: {{ .Values.preflight.image.pullPolicy }}
-          command: ["/bin/sh"]
+          command: [ "/bin/sh" ]
           args:
-          - -ec
-          - |
-            cilium-dbg preflight validate-cnp;
-            touch /tmp/ready-validate-cnp;
-            sleep 1h;
+            - -ec
+            - |
+              cilium-dbg preflight validate-cnp;
+              touch /tmp/ready-validate-cnp;
+              sleep 1h;
           livenessProbe:
             exec:
               command:
-              - cat
-              - /tmp/ready-validate-cnp
+                - cat
+                - /tmp/ready-validate-cnp
             initialDelaySeconds: 5
             periodSeconds: 5
           readinessProbe:
             exec:
               command:
-              - cat
-              - /tmp/ready-validate-cnp
+                - cat
+                - /tmp/ready-validate-cnp
             initialDelaySeconds: 5
             periodSeconds: 5
           {{- with .Values.preflight.extraVolumeMounts }}
@@ -66,12 +66,12 @@ spec:
           {{- end }}
           env:
           {{- if .Values.k8sServiceHost }}
-          - name: KUBERNETES_SERVICE_HOST
-            value: {{ .Values.k8sServiceHost | quote }}
+            - name: KUBERNETES_SERVICE_HOST
+              value: {{ .Values.k8sServiceHost | quote }}
           {{- end }}
           {{- if .Values.k8sServicePort }}
-          - name: KUBERNETES_SERVICE_PORT
-            value: {{ .Values.k8sServicePort | quote }}
+            - name: KUBERNETES_SERVICE_PORT
+              value: {{ .Values.k8sServicePort | quote }}
           {{- end }}
           {{- with .Values.preflight.extraEnv }}
           {{- toYaml . | trim | nindent 10 }}

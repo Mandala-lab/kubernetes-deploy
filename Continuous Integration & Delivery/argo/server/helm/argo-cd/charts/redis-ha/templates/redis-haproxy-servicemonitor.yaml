@@ -14,15 +14,15 @@ metadata:
     {{- end }}
 spec:
   endpoints:
-  - targetPort: {{ .Values.haproxy.metrics.port }}
+    - targetPort: {{ .Values.haproxy.metrics.port }}
 {{- if .Values.haproxy.metrics.serviceMonitor.interval }}
-    interval: {{ .Values.haproxy.metrics.serviceMonitor.interval }}
+      interval: {{ .Values.haproxy.metrics.serviceMonitor.interval }}
 {{- end }}
 {{- if .Values.haproxy.metrics.serviceMonitor.telemetryPath }}
-    path: {{ .Values.haproxy.metrics.serviceMonitor.telemetryPath }}
+      path: {{ .Values.haproxy.metrics.serviceMonitor.telemetryPath }}
 {{- end }}
 {{- if .Values.haproxy.metrics.serviceMonitor.timeout }}
-    scrapeTimeout: {{ .Values.haproxy.metrics.serviceMonitor.timeout }}
+      scrapeTimeout: {{ .Values.haproxy.metrics.serviceMonitor.timeout }}
 {{- end }}
 {{- with .Values.haproxy.metrics.serviceMonitor.endpointAdditionalProperties }}
 {{- toYaml . | nindent 4 }}
@@ -30,7 +30,7 @@ spec:
   jobLabel: {{ template "redis-ha.fullname" . }}-haproxy
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace | quote }}
+      - {{ .Release.Namespace | quote }}
   selector:
     matchLabels:
       app: {{ template "redis-ha.name" . }}

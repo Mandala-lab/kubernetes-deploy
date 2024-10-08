@@ -26,22 +26,22 @@ spec:
       name: cilium-operator
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace }}
+      - {{ .Release.Namespace }}
   endpoints:
-  - port: metrics
-    interval: {{ .Values.operator.prometheus.serviceMonitor.interval | quote }}
-    honorLabels: true
-    path: /metrics
+    - port: metrics
+      interval: {{ .Values.operator.prometheus.serviceMonitor.interval | quote }}
+      honorLabels: true
+      path: /metrics
     {{- with .Values.operator.prometheus.serviceMonitor.relabelings }}
-    relabelings:
+      relabelings:
     {{- toYaml . | nindent 4 }}
     {{- end }}
     {{- with .Values.operator.prometheus.serviceMonitor.metricRelabelings }}
-    metricRelabelings:
+      metricRelabelings:
     {{- toYaml . | nindent 4 }}
     {{- end }}
   targetLabels:
-  - io.cilium/app
+    - io.cilium/app
 {{- if .Values.operator.prometheus.serviceMonitor.jobLabel }}
   jobLabel: {{ .Values.operator.prometheus.serviceMonitor.jobLabel | quote }}
 {{- end }}

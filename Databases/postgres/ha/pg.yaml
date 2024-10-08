@@ -28,7 +28,7 @@ global:
   ## imagePullSecrets:
   ##   - myRegistryKeySecretName
   ##
-  imagePullSecrets: []
+  imagePullSecrets: [ ]
   storageClass: ""
   postgresql:
     username: ""
@@ -62,16 +62,16 @@ fullnameOverride: ""
 namespaceOverride: ""
 ## @param commonLabels Common labels to add to all resources (sub-charts are not considered). Evaluated as a template
 ##
-commonLabels: {}
+commonLabels: { }
 ## @param commonAnnotations Common annotations to add to all resources (sub-charts are not considered). Evaluated as a template
 ##
-commonAnnotations: {}
+commonAnnotations: { }
 ## @param clusterDomain Kubernetes Cluster Domain
 ##
 clusterDomain: cluster.local
 ## @param extraDeploy Array of extra objects to deploy with the release (evaluated as a template)
 ##
-extraDeploy: []
+extraDeploy: [ ]
 ## Diagnostic mode in the deployment
 ##
 diagnosticMode:
@@ -117,19 +117,19 @@ postgresql:
     ## pullSecrets:
     ##   - myRegistryKeySecretName
     ##
-    pullSecrets: []
+    pullSecrets: [ ]
     ## Set to true if you would like to see extra information on logs
     ##
     debug: false
   ## @param postgresql.labels Labels to add to the StatefulSet. Evaluated as template
   ##
-  labels: {}
+  labels: { }
   ## @param postgresql.podLabels Labels to add to the StatefulSet pods. Evaluated as template
   ##
-  podLabels: {}
+  podLabels: { }
   ## @param postgresql.serviceAnnotations Provide any additional annotations for PostgreSQL service
   ##
-  serviceAnnotations: {}
+  serviceAnnotations: { }
   ## @param postgresql.replicaCount Number of replicas to deploy. Use an odd number. Having 3 replicas is the minimum to get quorum when promoting a new primary.
   ##
   replicaCount: 3
@@ -154,7 +154,7 @@ postgresql:
   ## @param postgresql.hostAliases Deployment pod host aliases
   ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
   ##
-  hostAliases: []
+  hostAliases: [ ]
   ## @param postgresql.hostNetwork Specify if host network should be enabled for PostgreSQL pod
   ##
   hostNetwork: false
@@ -164,7 +164,7 @@ postgresql:
   ## @param postgresql.podAnnotations Additional pod annotations
   ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
   ##
-  podAnnotations: {}
+  podAnnotations: { }
   ## @param postgresql.podAffinityPreset PostgreSQL pod affinity preset. Ignored if `postgresql.affinity` is set. Allowed values: `soft` or `hard`
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
   ##
@@ -191,24 +191,24 @@ postgresql:
     ##   - e2e-az1
     ##   - e2e-az2
     ##
-    values: []
+    values: [ ]
   ## @param postgresql.affinity Affinity for PostgreSQL pods assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ## Note: postgresql.podAffinityPreset, postgresql.podAntiAffinityPreset, and postgresql.nodeAffinityPreset will be ignored when it's set
   ##
-  affinity: {}
+  affinity: { }
   ## @param postgresql.nodeSelector Node labels for PostgreSQL pods assignment
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
   ##
-  nodeSelector: {}
+  nodeSelector: { }
   ## @param postgresql.tolerations Tolerations for PostgreSQL pods assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   ##
-  tolerations: []
+  tolerations: [ ]
   ## @param postgresql.topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
   ##
-  topologySpreadConstraints: []
+  topologySpreadConstraints: [ ]
   ## @param postgresql.priorityClassName Pod priority class
   ## Ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
   ##
@@ -232,8 +232,8 @@ postgresql:
   podSecurityContext:
     enabled: true
     fsGroupChangePolicy: Always
-    sysctls: []
-    supplementalGroups: []
+    sysctls: [ ]
+    supplementalGroups: [ ]
     fsGroup: 1001
   ## Container Security Context
   ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -262,24 +262,24 @@ postgresql:
     readOnlyRootFilesystem: false
     allowPrivilegeEscalation: false
     capabilities:
-      drop: ["ALL"]
+      drop: [ "ALL" ]
     seccompProfile:
       type: "RuntimeDefault"
   ## @param postgresql.command Override default container command (useful when using custom images)
   ##
-  command: []
+  command: [ ]
   ## @param postgresql.args Override default container args (useful when using custom images)
   ##
-  args: []
+  args: [ ]
   ## @param postgresql.lifecycleHooks LifecycleHook to set additional configuration at startup, e.g. LDAP settings via REST API. Evaluated as a template
   ##
-  lifecycleHooks: {}
+  lifecycleHooks: { }
   ## @param postgresql.extraEnvVars Array containing extra environment variables
   ## For example:
   ##  - name: PG_EXPORTER_DISABLE_DEFAULT_METRICS
   ##    value: "true"
   ##
-  extraEnvVars: []
+  extraEnvVars: [ ]
   ## @param postgresql.extraEnvVarsCM ConfigMap with extra environment variables
   ##
   extraEnvVarsCM: ""
@@ -288,16 +288,16 @@ postgresql:
   extraEnvVarsSecret: ""
   ## @param postgresql.extraVolumes Extra volumes to add to the deployment
   ##
-  extraVolumes: []
+  extraVolumes: [ ]
   ## @param postgresql.extraVolumeMounts Extra volume mounts to add to the container. Normally used with `extraVolumes`.
   ##
-  extraVolumeMounts: []
+  extraVolumeMounts: [ ]
   ## @param postgresql.initContainers Extra init containers to add to the deployment
   ##
-  initContainers: []
+  initContainers: [ ]
   ## @param postgresql.sidecars Extra sidecar containers to add to the deployment
   ##
-  sidecars: []
+  sidecars: [ ]
   ## PostgreSQL containers' resource requests and limits
   ## ref: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
   ## We usually recommend not to specify default resources and to leave this as a conscious
@@ -313,13 +313,13 @@ postgresql:
     ##    cpu: 250m
     ##    memory: 256Mi
     ##
-    limits: {}
+    limits: { }
     ## Examples:
     ## requests:
     ##    cpu: 250m
     ##    memory: 256Mi
     ##
-    requests: {}
+    requests: { }
   ## The pod management policy of the statefulset.
   ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#pod-management-policies
   ## @param postgresql.podManagementPolicy sets the pod management policy
@@ -374,13 +374,13 @@ postgresql:
     failureThreshold: 10
   ## @param postgresql.customLivenessProbe Override default liveness probe
   ##
-  customLivenessProbe: {}
+  customLivenessProbe: { }
   ## @param postgresql.customReadinessProbe Override default readiness probe
   ##
-  customReadinessProbe: {}
+  customReadinessProbe: { }
   ## @param postgresql.customStartupProbe Override default startup probe
   ##
-  customStartupProbe: {}
+  customStartupProbe: { }
   ## Network Policies
   ## Ref: https://kubernetes.io/docs/concepts/services-networking/network-policies/
   ##
@@ -413,7 +413,7 @@ postgresql:
     ##                 operator: In
     ##                 values:
     ##                   - frontend
-    extraIngress: []
+    extraIngress: [ ]
     ## @param postgresql.networkPolicy.extraEgress [array] Add extra ingress rules to the NetworkPolicy
     ## e.g:
     ## extraEgress:
@@ -430,12 +430,12 @@ postgresql:
     ##                 values:
     ##                   - frontend
     ##
-    extraEgress: []
+    extraEgress: [ ]
     ## @param postgresql.networkPolicy.ingressNSMatchLabels [object] Labels to match to allow traffic from other namespaces
     ## @param postgresql.networkPolicy.ingressNSPodMatchLabels [object] Pod labels to match to allow traffic from other namespaces
     ##
-    ingressNSMatchLabels: {}
-    ingressNSPodMatchLabels: {}
+    ingressNSMatchLabels: { }
+    ingressNSPodMatchLabels: { }
   ## Pod disruption budget configuration
   ## @param postgresql.pdb.create Specifies whether to create a Pod disruption budget for PostgreSQL with Repmgr
   ## @param postgresql.pdb.minAvailable Minimum number / percentage of pods that should remain scheduled
@@ -575,7 +575,7 @@ postgresql:
   ##     image: busybox
   ##     command: ['do', 'something']
   ##
-  extraInitContainers: []
+  extraInitContainers: [ ]
   ## @param postgresql.repmgrConfiguration Repmgr configuration
   ## You can use this parameter to specify the content for repmgr.conf
   ## Otherwise, a repmgr.conf will be generated based on the environment variables
@@ -640,7 +640,7 @@ postgresql:
   ##      #!/bin/sh
   ##      echo "Do something."
   ##
-  initdbScripts: {}
+  initdbScripts: { }
   ## @param postgresql.initdbScriptsCM ConfigMap with scripts to be run at first boot
   ## NOTE: This will override initdbScripts
   ##
@@ -692,10 +692,10 @@ witness:
   create: false
   ## @param witness.labels Labels to add to the StatefulSet. Evaluated as template
   ##
-  labels: {}
+  labels: { }
   ## @param witness.podLabels Labels to add to the StatefulSet pods. Evaluated as template
   ##
-  podLabels: {}
+  podLabels: { }
   ## @param witness.replicaCount Number of replicas to deploy.
   ##
   replicaCount: 1
@@ -720,7 +720,7 @@ witness:
   ## @param witness.hostAliases Deployment pod host aliases
   ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
   ##
-  hostAliases: []
+  hostAliases: [ ]
   ## @param witness.hostNetwork Specify if host network should be enabled for PostgreSQL witness pod
   ##
   hostNetwork: false
@@ -730,7 +730,7 @@ witness:
   ## @param witness.podAnnotations Additional pod annotations
   ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
   ##
-  podAnnotations: {}
+  podAnnotations: { }
   ## @param witness.podAffinityPreset PostgreSQL witness pod affinity preset. Ignored if `witness.affinity` is set. Allowed values: `soft` or `hard`
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
   ##
@@ -757,24 +757,24 @@ witness:
     ##   - e2e-az1
     ##   - e2e-az2
     ##
-    values: []
+    values: [ ]
   ## @param witness.affinity Affinity for PostgreSQL witness pods assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ## Note: witness.podAffinityPreset, witness.podAntiAffinityPreset, and witness.nodeAffinityPreset will be ignored when it's set
   ##
-  affinity: {}
+  affinity: { }
   ## @param witness.nodeSelector Node labels for PostgreSQL witness pods assignment
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
   ##
-  nodeSelector: {}
+  nodeSelector: { }
   ## @param witness.tolerations Tolerations for PostgreSQL witness pods assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   ##
-  tolerations: []
+  tolerations: [ ]
   ## @param witness.topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
   ##
-  topologySpreadConstraints: []
+  topologySpreadConstraints: [ ]
   ## @param witness.priorityClassName Pod priority class
   ## Ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
   ##
@@ -798,8 +798,8 @@ witness:
   podSecurityContext:
     enabled: true
     fsGroupChangePolicy: Always
-    sysctls: []
-    supplementalGroups: []
+    sysctls: [ ]
+    supplementalGroups: [ ]
     fsGroup: 1001
   ## Container Security Context
   ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -828,24 +828,24 @@ witness:
     readOnlyRootFilesystem: false
     allowPrivilegeEscalation: false
     capabilities:
-      drop: ["ALL"]
+      drop: [ "ALL" ]
     seccompProfile:
       type: "RuntimeDefault"
   ## @param witness.command Override default container command (useful when using custom images)
   ##
-  command: []
+  command: [ ]
   ## @param witness.args Override default container args (useful when using custom images)
   ##
-  args: []
+  args: [ ]
   ## @param witness.lifecycleHooks LifecycleHook to set additional configuration at startup, e.g. LDAP settings via REST API. Evaluated as a template
   ##
-  lifecycleHooks: {}
+  lifecycleHooks: { }
   ## @param witness.extraEnvVars Array containing extra environment variables
   ## For example:
   ##  - name: PG_EXPORTER_DISABLE_DEFAULT_METRICS
   ##    value: "true"
   ##
-  extraEnvVars: []
+  extraEnvVars: [ ]
   ## @param witness.extraEnvVarsCM ConfigMap with extra environment variables
   ##
   extraEnvVarsCM: ""
@@ -854,16 +854,16 @@ witness:
   extraEnvVarsSecret: ""
   ## @param witness.extraVolumes Extra volumes to add to the deployment
   ##
-  extraVolumes: []
+  extraVolumes: [ ]
   ## @param witness.extraVolumeMounts Extra volume mounts to add to the container. Normally used with `extraVolumes`.
   ##
-  extraVolumeMounts: []
+  extraVolumeMounts: [ ]
   ## @param witness.initContainers Extra init containers to add to the deployment
   ##
-  initContainers: []
+  initContainers: [ ]
   ## @param witness.sidecars Extra sidecar containers to add to the deployment
   ##
-  sidecars: []
+  sidecars: [ ]
   ## PostgreSQL containers' resource requests and limits
   ## ref: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
   ## We usually recommend not to specify default resources and to leave this as a conscious
@@ -879,13 +879,13 @@ witness:
     ##    cpu: 250m
     ##    memory: 256Mi
     ##
-    limits: {}
+    limits: { }
     ## Examples:
     ## requests:
     ##    cpu: 250m
     ##    memory: 256Mi
     ##
-    requests: {}
+    requests: { }
   ## PostgreSQL container's liveness probe
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
   ## @param witness.livenessProbe.enabled Enable livenessProbe
@@ -936,13 +936,13 @@ witness:
     failureThreshold: 10
   ## @param witness.customLivenessProbe Override default liveness probe
   ##
-  customLivenessProbe: {}
+  customLivenessProbe: { }
   ## @param witness.customReadinessProbe Override default readiness probe
   ##
-  customReadinessProbe: {}
+  customReadinessProbe: { }
   ## @param witness.customStartupProbe Override default startup probe
   ##
-  customStartupProbe: {}
+  customStartupProbe: { }
   ## Pod disruption budget configuration
   ## @param witness.pdb.create Specifies whether to create a Pod disruption budget for PostgreSQL witness with Repmgr
   ## @param witness.pdb.minAvailable Minimum number / percentage of pods that should remain scheduled
@@ -1030,7 +1030,7 @@ witness:
   ##     image: busybox
   ##     command: ['do', 'something']
   ##
-  extraInitContainers: []
+  extraInitContainers: [ ]
   ## @param witness.repmgrConfiguration Repmgr configuration
   ## You can use this parameter to specify the content for repmgr.conf
   ## Otherwise, a repmgr.conf will be generated based on the environment variables
@@ -1095,7 +1095,7 @@ witness:
   ##      #!/bin/sh
   ##      echo "Do something."
   ##
-  initdbScripts: {}
+  initdbScripts: { }
   ## @param witness.initdbScriptsCM ConfigMap with scripts to be run at first boot
   ## NOTE: This will override initdbScripts
   ##
@@ -1135,7 +1135,7 @@ pgpool:
     ## pullSecrets:
     ##   - myRegistryKeySecretName
     ##
-    pullSecrets: []
+    pullSecrets: [ ]
     ## Set to true if you would like to see extra information on logs
     ##
     debug: false
@@ -1155,7 +1155,7 @@ pgpool:
   ## @param pgpool.hostAliases Deployment pod host aliases
   ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
   ##
-  hostAliases: []
+  hostAliases: [ ]
   ## @param pgpool.customUsersSecret Name of a secret containing the usernames and passwords of accounts that will be added to pgpool_passwd
   ## The secret must contain the keys "usernames" and "passwords" respectively.
   ##
@@ -1168,40 +1168,40 @@ pgpool:
   srCheckDatabase: postgres
   ## @param pgpool.labels Labels to add to the Deployment. Evaluated as template
   ##
-  labels: {}
+  labels: { }
   ## @param pgpool.podLabels Labels to add to the pods. Evaluated as template
   ##
-  podLabels: {}
+  podLabels: { }
   ## @param pgpool.serviceLabels Labels to add to the service. Evaluated as template
   ##
-  serviceLabels: {}
+  serviceLabels: { }
   ## @param pgpool.serviceAnnotations Provide any additional annotations for Pgpool service
   ##
-  serviceAnnotations: {}
+  serviceAnnotations: { }
   ## @param pgpool.customLivenessProbe Override default liveness probe
   ##
-  customLivenessProbe: {}
+  customLivenessProbe: { }
   ## @param pgpool.customReadinessProbe Override default readiness probe
   ##
-  customReadinessProbe: {}
+  customReadinessProbe: { }
   ## @param pgpool.customStartupProbe Override default startup probe
   ##
-  customStartupProbe: {}
+  customStartupProbe: { }
   ## @param pgpool.command Override default container command (useful when using custom images)
   ##
-  command: []
+  command: [ ]
   ## @param pgpool.args Override default container args (useful when using custom images)
   ##
-  args: []
+  args: [ ]
   ## @param pgpool.lifecycleHooks LifecycleHook to set additional configuration at startup, e.g. LDAP settings via REST API. Evaluated as a template
   ##
-  lifecycleHooks: {}
+  lifecycleHooks: { }
   ## @param pgpool.extraEnvVars Array containing extra environment variables
   ## For example:
   ##  - name: BEARER_AUTH
   ##    value: true
   ##
-  extraEnvVars: []
+  extraEnvVars: [ ]
   ## @param pgpool.extraEnvVarsCM ConfigMap with extra environment variables
   ##
   extraEnvVarsCM: ""
@@ -1210,23 +1210,23 @@ pgpool:
   extraEnvVarsSecret: ""
   ## @param pgpool.extraVolumes Extra volumes to add to the deployment
   ##
-  extraVolumes: []
+  extraVolumes: [ ]
   ## @param pgpool.extraVolumeMounts Extra volume mounts to add to the container. Normally used with `extraVolumes`
   ##
-  extraVolumeMounts: []
+  extraVolumeMounts: [ ]
   ## @param pgpool.initContainers Extra init containers to add to the deployment
   ##
-  initContainers: []
+  initContainers: [ ]
   ## @param pgpool.sidecars Extra sidecar containers to add to the deployment
   ##
-  sidecars: []
+  sidecars: [ ]
   ## @param pgpool.replicaCount The number of replicas to deploy
   ##
   replicaCount: 1
   ## @param pgpool.podAnnotations Additional pod annotations
   ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
   ##
-  podAnnotations: {}
+  podAnnotations: { }
   ## @param pgpool.priorityClassName Pod priority class
   ## Ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
   ##
@@ -1242,7 +1242,7 @@ pgpool:
   ## @param pgpool.topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
   ##
-  topologySpreadConstraints: []
+  topologySpreadConstraints: [ ]
   ## @param pgpool.podAffinityPreset Pgpool pod affinity preset. Ignored if `pgpool.affinity` is set. Allowed values: `soft` or `hard`
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
   ##
@@ -1269,20 +1269,20 @@ pgpool:
     ##   - e2e-az1
     ##   - e2e-az2
     ##
-    values: []
+    values: [ ]
   ## @param pgpool.affinity Affinity for Pgpool pods assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ## Note: pgpool.podAffinityPreset, pgpool.podAntiAffinityPreset, and pgpool.nodeAffinityPreset will be ignored when it's set
   ##
-  affinity: {}
+  affinity: { }
   ## @param pgpool.nodeSelector Node labels for Pgpool pods assignment
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
   ##
-  nodeSelector: {}
+  nodeSelector: { }
   ## @param pgpool.tolerations Tolerations for Pgpool pods assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   ##
-  tolerations: []
+  tolerations: [ ]
   ## K8s Security Context
   ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   ## @param pgpool.podSecurityContext.enabled Enable security context for Pgpool
@@ -1294,8 +1294,8 @@ pgpool:
   podSecurityContext:
     enabled: true
     fsGroupChangePolicy: Always
-    sysctls: []
-    supplementalGroups: []
+    sysctls: [ ]
+    supplementalGroups: [ ]
     fsGroup: 1001
   ## Container Security Context
   ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -1324,7 +1324,7 @@ pgpool:
     readOnlyRootFilesystem: false
     allowPrivilegeEscalation: false
     capabilities:
-      drop: ["ALL"]
+      drop: [ "ALL" ]
     seccompProfile:
       type: "RuntimeDefault"
   ## Pgpool containers' resource requests and limits
@@ -1342,13 +1342,13 @@ pgpool:
     ##    cpu: 250m
     ##    memory: 256Mi
     ##
-    limits: {}
+    limits: { }
     ## Examples:
     ## requests:
     ##    cpu: 250m
     ##    memory: 256Mi
     ##
-    requests: {}
+    requests: { }
   ## Pgpool container's liveness probe
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
   ## @param pgpool.livenessProbe.enabled Enable livenessProbe
@@ -1429,7 +1429,7 @@ pgpool:
     ##                 operator: In
     ##                 values:
     ##                   - frontend
-    extraIngress: []
+    extraIngress: [ ]
     ## @param pgpool.networkPolicy.extraEgress [array] Add extra ingress rules to the NetworkPolicy
     ## e.g:
     ## extraEgress:
@@ -1446,12 +1446,12 @@ pgpool:
     ##                 values:
     ##                   - frontend
     ##
-    extraEgress: []
+    extraEgress: [ ]
     ## @param pgpool.networkPolicy.ingressNSMatchLabels [object] Labels to match to allow traffic from other namespaces
     ## @param pgpool.networkPolicy.ingressNSPodMatchLabels [object] Pod labels to match to allow traffic from other namespaces
     ##
-    ingressNSMatchLabels: {}
-    ingressNSPodMatchLabels: {}
+    ingressNSMatchLabels: { }
+    ingressNSPodMatchLabels: { }
   ## Pod disruption budget configuration
   ## @param pgpool.pdb.create Specifies whether a Pod disruption budget should be created for Pgpool pods
   ## @param pgpool.pdb.minAvailable Minimum number / percentage of pods that should remain scheduled
@@ -1464,7 +1464,7 @@ pgpool:
   ## @param pgpool.updateStrategy Strategy used to replace old Pods by new ones
   ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
   ##
-  updateStrategy: {}
+  updateStrategy: { }
   ## @param pgpool.containerPorts.postgresql Pgpool port
   ##
   containerPorts:
@@ -1573,7 +1573,7 @@ pgpool:
   ##      #!/bin/sh
   ##      echo "Do something."
   ##
-  initdbScripts: {}
+  initdbScripts: { }
   ## @param pgpool.initdbScriptsCM ConfigMap with scripts to be run every time Pgpool container is initialized
   ## NOTE: This will override pgpool.initdbScripts
   ##
@@ -1657,7 +1657,7 @@ rbac:
   ##       - get
   ##       - list
   ##
-  rules: []
+  rules: [ ]
 
 ## ServiceAccount configuration
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -1672,7 +1672,7 @@ serviceAccount:
   name: ""
   ## @param serviceAccount.annotations Additional custom annotations for the ServiceAccount
   ##
-  annotations: {}
+  annotations: { }
   ## @param serviceAccount.automountServiceAccountToken Allows auto mount of ServiceAccountToken on the serviceAccount created
   ## Can be set to false if pods using this serviceAccount do not need to use K8s API
   ##
@@ -1719,7 +1719,7 @@ metrics:
     ## pullSecrets:
     ##   - myRegistryKeySecretName
     ##
-    pullSecrets: []
+    pullSecrets: [ ]
     ## Set to true if you would like to see extra information on logs
     ##
     debug: false
@@ -1755,13 +1755,13 @@ metrics:
     ##    cpu: 250m
     ##    memory: 256Mi
     ##
-    limits: {}
+    limits: { }
     ## Examples:
     ## requests:
     ##    cpu: 250m
     ##    memory: 256Mi
     ##
-    requests: {}
+    requests: { }
   ## @param metrics.containerPorts.http Prometheus metrics exporter port
   ##
   containerPorts:
@@ -1816,13 +1816,13 @@ metrics:
     failureThreshold: 10
   ## @param metrics.customLivenessProbe Override default liveness probe
   ##
-  customLivenessProbe: {}
+  customLivenessProbe: { }
   ## @param metrics.customReadinessProbe Override default readiness probe
   ##
-  customReadinessProbe: {}
+  customReadinessProbe: { }
   ## @param metrics.customStartupProbe Override default startup probe
   ##
-  customStartupProbe: {}
+  customStartupProbe: { }
 
   ## Metrics service parameters
   ##
@@ -1857,7 +1857,7 @@ metrics:
     ## loadBalancerSourceRanges:
     ##   - 10.10.10.0/24
     ##
-    loadBalancerSourceRanges: []
+    loadBalancerSourceRanges: [ ]
     ## @param metrics.service.externalTrafficPolicy PostgreSQL Prometheus exporter service external traffic policy
     ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
     ##
@@ -1880,13 +1880,13 @@ metrics:
   ##           usage: "GAUGE"
   ##           description: "Size of the database in bytes"
   ##
-  customMetrics: {}
+  customMetrics: { }
   ## @param metrics.extraEnvVars Array containing extra environment variables
   ## For example:
   ##  - name: BEARER_AUTH
   ##    value: true
   ##
-  extraEnvVars: []
+  extraEnvVars: [ ]
   ## @param metrics.extraEnvVarsCM ConfigMap with extra environment variables
   ##
   extraEnvVarsCM: ""
@@ -1916,10 +1916,10 @@ metrics:
     scrapeTimeout: ""
     ## @param metrics.serviceMonitor.annotations Additional annotations for the ServiceMonitor
     ##
-    annotations: {}
+    annotations: { }
     ## @param metrics.serviceMonitor.labels Additional labels that can be used so ServiceMonitor will be discovered by Prometheus
     ##
-    labels: {}
+    labels: { }
     ## @param metrics.serviceMonitor.selector [object] Defaults to what's used if you follow CoreOS Prometheus Install Instructions (<https://github.com/bitnami/charts/tree/main/bitnami/kube-prometheus#tldr>)
     ## Prometheus Selector Label (https://github.com/bitnami/charts/tree/main/bitnami/kube-prometheus#prometheus-operator-parameters)
     ## Kube Prometheus Selector Label (https://github.com/bitnami/charts/tree/main/bitnami/kube-prometheus#exporters)
@@ -1929,11 +1929,11 @@ metrics:
     ## @param metrics.serviceMonitor.relabelings ServiceMonitor relabelings. Value is evaluated as a template
     ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
     ##
-    relabelings: []
+    relabelings: [ ]
     ## @param metrics.serviceMonitor.metricRelabelings ServiceMonitor metricRelabelings. Value is evaluated as a template
     ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
     ##
-    metricRelabelings: []
+    metricRelabelings: [ ]
     ## @param metrics.serviceMonitor.honorLabels Specify honorLabels parameter to add the scrape endpoint
     ##
     honorLabels: false
@@ -1973,7 +1973,7 @@ volumePermissions:
     ## pullSecrets:
     ##   - myRegistryKeySecretName
     ##
-    pullSecrets: []
+    pullSecrets: [ ]
   ## K8s Security Context
   ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   ## @param volumePermissions.podSecurityContext.seLinuxOptions [object,nullable] Set SELinux options in container
@@ -2004,13 +2004,13 @@ volumePermissions:
     ##    cpu: 100m
     ##    memory: 128Mi
     ##
-    limits: {}
+    limits: { }
     ## Examples:
     ## requests:
     ##    cpu: 100m
     ##    memory: 128Mi
     ##
-    requests: {}
+    requests: { }
 
 ## @section Persistence parameters
 
@@ -2046,16 +2046,16 @@ persistence:
   size: 20Gi
   ## @param persistence.annotations Persistent Volume Claim annotations
   ##
-  annotations: {}
+  annotations: { }
   ## @param persistence.labels Persistent Volume Claim labels
   ##
-  labels: {}
+  labels: { }
   ## @param persistence.selector Selector to match an existing Persistent Volume (this value is evaluated as a template)
   ## selector:
   ##   matchLabels:
   ##     app: my-app
   ##
-  selector: {}
+  selector: { }
 
 ## Persistent Volume Claim Retention Policy
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention
@@ -2103,7 +2103,7 @@ service:
   ## loadBalancerSourceRanges:
   ## - 10.10.10.0/24
   ##
-  loadBalancerSourceRanges: []
+  loadBalancerSourceRanges: [ ]
   ## @param service.clusterIP Set the Cluster IP to use
   ## Static clusterIP or None for headless services
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#choosing-your-own-ip-address
@@ -2117,7 +2117,7 @@ service:
   externalTrafficPolicy: Cluster
   ## @param service.extraPorts Extra ports to expose (normally used with the `sidecar` value)
   ##
-  extraPorts: []
+  extraPorts: [ ]
   ## @param service.sessionAffinity Control where client requests go, to the same pod or round-robin
   ## Values: ClientIP or None
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/
@@ -2127,19 +2127,19 @@ service:
   ## sessionAffinityConfig:
   ##   clientIP:
   ##     timeoutSeconds: 300
-  sessionAffinityConfig: {}
+  sessionAffinityConfig: { }
   ## @param service.annotations Provide any additional annotations both for PostgreSQL and Pgpool services
   ##
-  annotations: {}
+  annotations: { }
   ## @param service.serviceLabels Labels for PostgreSQL service
   ##
-  serviceLabels: {}
+  serviceLabels: { }
   ## Headless service properties
   ##
   headless:
     ## @param service.headless.annotations Annotations for the headless service.
     ##
-    annotations: {}
+    annotations: { }
 
 ## @section Backup parameters
 ## This section implements a trivial logical dump cronjob of the database.
@@ -2174,8 +2174,8 @@ backup:
     podSecurityContext:
       enabled: true
       fsGroupChangePolicy: Always
-      sysctls: []
-      supplementalGroups: []
+      sysctls: [ ]
+      supplementalGroups: [ ]
       fsGroup: 1001
     ## backup container's Security Context
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
@@ -2208,13 +2208,13 @@ backup:
       - "pg_dumpall --clean --if-exists --load-via-partition-root --quote-all-identifiers --no-password --file=${PGDUMP_DIR}/pg_dumpall-$(date '+%Y-%m-%d-%H-%M').pgdump"
 
     ## @param backup.cronjob.labels Set the cronjob labels
-    labels: {}
+    labels: { }
     ## @param backup.cronjob.annotations Set the cronjob annotations
-    annotations: {}
+    annotations: { }
     ## @param backup.cronjob.nodeSelector Node labels for PostgreSQL backup CronJob pod assignment
     ## ref: https://kubernetes.io/docs/user-guide/node-selection/
     ##
-    nodeSelector: {}
+    nodeSelector: { }
     storage:
       ## @param backup.cronjob.storage.existingClaim Provide an existing `PersistentVolumeClaim` (only when `architecture=standalone`)
       ## If defined, PVC must be created manually before volume will be bound
@@ -2239,7 +2239,7 @@ backup:
       size: 8Gi
       ## @param backup.cronjob.storage.annotations PVC annotations
       ##
-      annotations: {}
+      annotations: { }
       ## @param backup.cronjob.storage.mountPath Path to mount the volume at
       ##
       mountPath: /backup/pgdump
@@ -2254,4 +2254,4 @@ backup:
         ## A label query over volumes to consider for binding (e.g. when using local volumes)
         ## See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta for more details
         ##
-        selector: {}
+        selector: { }

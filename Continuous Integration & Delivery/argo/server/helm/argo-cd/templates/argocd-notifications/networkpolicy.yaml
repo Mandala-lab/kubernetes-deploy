@@ -8,13 +8,13 @@ metadata:
     {{- include "argo-cd.labels" (dict "context" . "component" .Values.notifications.name "name" .Values.notifications.name) | nindent 4 }}
 spec:
   ingress:
-  - from:
-    - namespaceSelector: {}
-    ports:
-    - port: metrics
+    - from:
+        - namespaceSelector: { }
+      ports:
+        - port: metrics
   podSelector:
     matchLabels:
       {{- include "argo-cd.selectorLabels" (dict "context" . "name" .Values.notifications.name) | nindent 6 }}
   policyTypes:
-  - Ingress
+    - Ingress
 {{- end }}

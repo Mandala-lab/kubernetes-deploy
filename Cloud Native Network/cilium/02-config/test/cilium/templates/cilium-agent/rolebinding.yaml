@@ -22,7 +22,7 @@ subjects:
 {{- end}}
 
 {{- if and .Values.agent (not .Values.preflight.enabled) .Values.serviceAccounts.cilium.create .Values.ingressController.enabled .Values.ingressController.secretsNamespace.name}}
---- 
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -62,9 +62,9 @@ roleRef:
   kind: Role
   name: cilium-gateway-secrets
 subjects:
-- kind: ServiceAccount
-  name: {{ .Values.serviceAccounts.cilium.name | quote }}
-  namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccounts.cilium.name | quote }}
+    namespace: {{ .Release.Namespace }}
 {{- end}}
 
 {{- if and .Values.agent (not .Values.preflight.enabled) .Values.serviceAccounts.cilium.create .Values.envoyConfig.enabled .Values.envoyConfig.secretsNamespace.name}}
@@ -85,9 +85,9 @@ roleRef:
   kind: Role
   name: cilium-envoy-config-secrets
 subjects:
-- kind: ServiceAccount
-  name: {{ .Values.serviceAccounts.cilium.name | quote }}
-  namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccounts.cilium.name | quote }}
+    namespace: {{ .Release.Namespace }}
 {{- end}}
 
 {{- if and .Values.agent (not .Values.preflight.enabled) .Values.serviceAccounts.cilium.create .Values.bgpControlPlane.enabled .Values.bgpControlPlane.secretsNamespace.name}}
@@ -104,7 +104,7 @@ roleRef:
   kind: Role
   name: cilium-bgp-control-plane-secrets
 subjects:
-- kind: ServiceAccount
-  name: {{ .Values.serviceAccounts.cilium.name | quote }}
-  namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccounts.cilium.name | quote }}
+    namespace: {{ .Release.Namespace }}
 {{- end}}

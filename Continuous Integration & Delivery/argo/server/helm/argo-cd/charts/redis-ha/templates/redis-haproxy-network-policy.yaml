@@ -36,7 +36,7 @@ spec:
         - port: {{ .Values.sentinel.port }}
           protocol: TCP
     - to:
-        - namespaceSelector: {}
+        - namespaceSelector: { }
       ports:
         - port: 53
           protocol: UDP

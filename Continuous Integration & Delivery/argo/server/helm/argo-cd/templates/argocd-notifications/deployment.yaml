@@ -104,9 +104,9 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:
-          - name: metrics
-            containerPort: {{ .Values.notifications.containerPorts.metrics }}
-            protocol: TCP
+            - name: metrics
+              containerPort: {{ .Values.notifications.containerPorts.metrics }}
+              protocol: TCP
           resources:
             {{- toYaml .Values.notifications.resources | nindent 12 }}
           {{- with .Values.notifications.containerSecurityContext }}
@@ -144,10 +144,10 @@ spec:
       {{- with .Values.notifications.topologySpreadConstraints | default .Values.global.topologySpreadConstraints }}
       topologySpreadConstraints:
         {{- range $constraint := . }}
-      - {{ toYaml $constraint | nindent 8 | trim }}
+        - {{ toYaml $constraint | nindent 8 | trim }}
           {{- if not $constraint.labelSelector }}
-        labelSelector:
-          matchLabels:
+          labelSelector:
+            matchLabels:
             {{- include "argo-cd.selectorLabels" (dict "context" $ "name" $.Values.notifications.name) | nindent 12 }}
           {{- end }}
         {{- end }}
@@ -164,12 +164,12 @@ spec:
             secretName: argocd-repo-server-tls
             optional: true
             items:
-            - key: tls.crt
-              path: tls.crt
-            - key: tls.key
-              path: tls.key
-            - key: ca.crt
-              path: ca.crt
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+              - key: ca.crt
+                path: ca.crt
       {{- with .Values.notifications.dnsConfig }}
       dnsConfig:
         {{- toYaml . | nindent 8 }}

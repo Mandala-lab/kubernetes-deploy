@@ -10,43 +10,43 @@ rules:
     {{- toYaml . | nindent 2 }}
   {{- end }}
   - apiGroups:
-    - argoproj.io
+      - argoproj.io
     resources:
-    - applications
-    - appprojects
+      - applications
+      - appprojects
     verbs:
-    - get
-    - list
-    - watch
-    - update
-    - patch
+      - get
+      - list
+      - watch
+      - update
+      - patch
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - configmaps
-    - secrets
+      - configmaps
+      - secrets
     verbs:
-    - list
-    - watch
+      - list
+      - watch
     {{- if (index .Values.configs.params "application.namespaces") }}
-    - create
+      - create
     {{- end }}
   {{- if .Values.notifications.cm.create }}
   - apiGroups:
-    - ""
+      - ""
     resourceNames:
-    - argocd-notifications-cm
+      - argocd-notifications-cm
     resources:
-    - configmaps
+      - configmaps
     verbs:
-    - get
+      - get
   {{- end }}
   - apiGroups:
-    - ""
+      - ""
     resourceNames:
-    - {{ .Values.notifications.secret.name }}
+      - {{ .Values.notifications.secret.name }}
     resources:
-    - secrets
+      - secrets
     verbs:
-    - get
+      - get
 {{- end }}

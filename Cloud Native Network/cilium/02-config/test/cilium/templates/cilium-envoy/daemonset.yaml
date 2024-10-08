@@ -61,142 +61,142 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-      - name: cilium-envoy
-        image: {{ include "cilium.image" .Values.envoy.image | quote }}
-        imagePullPolicy: {{ .Values.envoy.image.pullPolicy }}
-        command:
-        - /usr/bin/cilium-envoy-starter
-        args:
-        - '-c /var/run/cilium/envoy/bootstrap-config.json'
-        - '--base-id 0'
+        - name: cilium-envoy
+          image: {{ include "cilium.image" .Values.envoy.image | quote }}
+          imagePullPolicy: {{ .Values.envoy.image.pullPolicy }}
+          command:
+            - /usr/bin/cilium-envoy-starter
+          args:
+            - '-c /var/run/cilium/envoy/bootstrap-config.json'
+            - '--base-id 0'
         {{- if and (.Values.debug.enabled) (hasKey .Values.debug "verbose") (.Values.debug.verbose) (has "envoy" ( splitList " " .Values.debug.verbose )) }}
-        - '--log-level trace'
+            - '--log-level trace'
         {{- else if and (.Values.debug.enabled) (hasKey .Values.debug "verbose") (.Values.debug.verbose) (has "flow" ( splitList " " .Values.debug.verbose )) }}
-        - '--log-level debug'
+            - '--log-level debug'
         {{- else }}
-        - '--log-level info'
+            - '--log-level info'
         {{- end }}
-        - '--log-format {{ .Values.envoy.log.format }}'
+            - '--log-format {{ .Values.envoy.log.format }}'
         {{- if .Values.envoy.log.path }}
-        - '--log-path {{ .Values.envoy.log.path }}'
+            - '--log-path {{ .Values.envoy.log.path }}'
         {{- end }}
         {{- with .Values.envoy.extraArgs }}
         {{- toYaml . | trim | nindent 8 }}
         {{- end }}
         {{- if semverCompare ">=1.20-0" .Capabilities.KubeVersion.Version }}
-        startupProbe:
-          httpGet:
-            host: "localhost"
-            path: /healthz
-            port: {{ .Values.envoy.healthPort }}
-            scheme: HTTP
-          failureThreshold: {{ .Values.envoy.startupProbe.failureThreshold }}
-          periodSeconds: {{ .Values.envoy.startupProbe.periodSeconds }}
-          successThreshold: 1
-          initialDelaySeconds: 5
+          startupProbe:
+            httpGet:
+              host: "localhost"
+              path: /healthz
+              port: {{ .Values.envoy.healthPort }}
+              scheme: HTTP
+            failureThreshold: {{ .Values.envoy.startupProbe.failureThreshold }}
+            periodSeconds: {{ .Values.envoy.startupProbe.periodSeconds }}
+            successThreshold: 1
+            initialDelaySeconds: 5
         {{- end }}
-        livenessProbe:
-          httpGet:
-            host: "localhost"
-            path: /healthz
-            port: {{ .Values.envoy.healthPort }}
-            scheme: HTTP
+          livenessProbe:
+            httpGet:
+              host: "localhost"
+              path: /healthz
+              port: {{ .Values.envoy.healthPort }}
+              scheme: HTTP
           {{- if semverCompare "<1.20-0" .Capabilities.KubeVersion.Version }}
-          # The initial delay for the liveness probe is intentionally large to
-          # avoid an endless kill & restart cycle if in the event that the initial
-          # bootstrapping takes longer than expected.
-          # Starting from Kubernetes 1.20, we are using startupProbe instead
-          # of this field.
-          initialDelaySeconds: 120
+            # The initial delay for the liveness probe is intentionally large to
+            # avoid an endless kill & restart cycle if in the event that the initial
+            # bootstrapping takes longer than expected.
+            # Starting from Kubernetes 1.20, we are using startupProbe instead
+            # of this field.
+            initialDelaySeconds: 120
           {{- end }}
-          periodSeconds: {{ .Values.envoy.livenessProbe.periodSeconds }}
-          successThreshold: 1
-          failureThreshold: {{ .Values.envoy.livenessProbe.failureThreshold }}
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            host: "localhost"
-            path: /healthz
-            port: {{ .Values.envoy.healthPort }}
-            scheme: HTTP
+            periodSeconds: {{ .Values.envoy.livenessProbe.periodSeconds }}
+            successThreshold: 1
+            failureThreshold: {{ .Values.envoy.livenessProbe.failureThreshold }}
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              host: "localhost"
+              path: /healthz
+              port: {{ .Values.envoy.healthPort }}
+              scheme: HTTP
           {{- if semverCompare "<1.20-0" .Capabilities.KubeVersion.Version }}
-          initialDelaySeconds: 5
+            initialDelaySeconds: 5
           {{- end }}
-          periodSeconds: {{ .Values.envoy.readinessProbe.periodSeconds }}
-          successThreshold: 1
-          failureThreshold: {{ .Values.envoy.readinessProbe.failureThreshold }}
-          timeoutSeconds: 5
-        env:
-        - name: K8S_NODE_NAME
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: spec.nodeName
-        - name: CILIUM_K8S_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
+            periodSeconds: {{ .Values.envoy.readinessProbe.periodSeconds }}
+            successThreshold: 1
+            failureThreshold: {{ .Values.envoy.readinessProbe.failureThreshold }}
+            timeoutSeconds: 5
+          env:
+            - name: K8S_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: CILIUM_K8S_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
         {{- if .Values.k8sServiceHost }}
-        - name: KUBERNETES_SERVICE_HOST
-          value: {{ .Values.k8sServiceHost | quote }}
+            - name: KUBERNETES_SERVICE_HOST
+              value: {{ .Values.k8sServiceHost | quote }}
         {{- end }}
         {{- if .Values.k8sServicePort }}
-        - name: KUBERNETES_SERVICE_PORT
-          value: {{ .Values.k8sServicePort | quote }}
+            - name: KUBERNETES_SERVICE_PORT
+              value: {{ .Values.k8sServicePort | quote }}
         {{- end }}
         {{- with .Values.envoy.extraEnv }}
         {{- toYaml . | trim | nindent 8 }}
         {{- end }}
         {{- with .Values.envoy.resources }}
-        resources:
+          resources:
           {{- toYaml . | trim | nindent 10 }}
         {{- end }}
         {{- if and .Values.proxy.prometheus.enabled .Values.envoy.prometheus.enabled }}
-        ports:
-        - name: envoy-metrics
-          containerPort: {{ .Values.proxy.prometheus.port | default .Values.envoy.prometheus.port }}
-          hostPort: {{ .Values.proxy.prometheus.port | default .Values.envoy.prometheus.port }}
-          protocol: TCP
+          ports:
+            - name: envoy-metrics
+              containerPort: {{ .Values.proxy.prometheus.port | default .Values.envoy.prometheus.port }}
+              hostPort: {{ .Values.proxy.prometheus.port | default .Values.envoy.prometheus.port }}
+              protocol: TCP
         {{- end }}
-        securityContext:
+          securityContext:
           {{- if .Values.envoy.securityContext.privileged }}
-          privileged: true
+            privileged: true
           {{- else }}
-          seLinuxOptions:
+            seLinuxOptions:
             {{- with .Values.envoy.securityContext.seLinuxOptions }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
-          capabilities:
-            add:
+            capabilities:
+              add:
             {{- with .Values.envoy.securityContext.capabilities.envoy }}
             {{- toYaml . | nindent 14 }}
             {{- end }}
-            drop:
-              - ALL
+              drop:
+                - ALL
           {{- end }}
-        terminationMessagePolicy: FallbackToLogsOnError
-        volumeMounts:
-        - name: envoy-sockets
-          mountPath: /var/run/cilium/envoy/sockets
-          readOnly: false
-        - name: envoy-artifacts
-          mountPath: /var/run/cilium/envoy/artifacts
-          readOnly: true
-        - name: envoy-config
-          mountPath: /var/run/cilium/envoy/
-          readOnly: true
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+            - name: envoy-sockets
+              mountPath: /var/run/cilium/envoy/sockets
+              readOnly: false
+            - name: envoy-artifacts
+              mountPath: /var/run/cilium/envoy/artifacts
+              readOnly: true
+            - name: envoy-config
+              mountPath: /var/run/cilium/envoy/
+              readOnly: true
         {{- if .Values.bpf.autoMount.enabled }}
-        - name: bpf-maps
-          mountPath: /sys/fs/bpf
-          mountPropagation: HostToContainer
+            - name: bpf-maps
+              mountPath: /sys/fs/bpf
+              mountPropagation: HostToContainer
         {{- end }}
         {{- range .Values.envoy.extraHostPathMounts }}
-        - name: {{ .name }}
-          mountPath: {{ .mountPath }}
-          readOnly: {{ .readOnly }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              readOnly: {{ .readOnly }}
           {{- if .mountPropagation }}
-          mountPropagation: {{ .mountPropagation }}
+              mountPropagation: {{ .mountPropagation }}
           {{- end }}
         {{- end }}
         {{- with .Values.envoy.extraVolumeMounts }}
@@ -228,36 +228,36 @@ spec:
         {{- toYaml . | trim | nindent 8 }}
       {{- end }}
       volumes:
-      - name: envoy-sockets
-        hostPath:
-          path: "{{ .Values.daemon.runPath }}/envoy/sockets"
-          type: DirectoryOrCreate
-      - name: envoy-artifacts
-        hostPath:
-          path: "{{ .Values.daemon.runPath }}/envoy/artifacts"
-          type: DirectoryOrCreate
-      - name: envoy-config
-        configMap:
-          name: cilium-envoy-config
-          # note: the leading zero means this number is in octal representation: do not remove it
-          defaultMode: 0400
-          items:
-            - key: bootstrap-config.json
-              path: bootstrap-config.json
-        # To keep state between restarts / upgrades
+        - name: envoy-sockets
+          hostPath:
+            path: "{{ .Values.daemon.runPath }}/envoy/sockets"
+            type: DirectoryOrCreate
+        - name: envoy-artifacts
+          hostPath:
+            path: "{{ .Values.daemon.runPath }}/envoy/artifacts"
+            type: DirectoryOrCreate
+        - name: envoy-config
+          configMap:
+            name: cilium-envoy-config
+            # note: the leading zero means this number is in octal representation: do not remove it
+            defaultMode: 0400
+            items:
+              - key: bootstrap-config.json
+                path: bootstrap-config.json
+          # To keep state between restarts / upgrades
       {{- if and .Values.bpf.autoMount.enabled }}
-        # To keep state between restarts / upgrades for bpf maps
-      - name: bpf-maps
-        hostPath:
-          path: /sys/fs/bpf
-          type: DirectoryOrCreate
+          # To keep state between restarts / upgrades for bpf maps
+        - name: bpf-maps
+          hostPath:
+            path: /sys/fs/bpf
+            type: DirectoryOrCreate
       {{- end }}
       {{- range .Values.envoy.extraHostPathMounts }}
-      - name: {{ .name }}
-        hostPath:
-          path: {{ .hostPath }}
+        - name: {{ .name }}
+          hostPath:
+            path: {{ .hostPath }}
           {{- if .hostPathType }}
-          type: {{ .hostPathType }}
+            type: {{ .hostPathType }}
           {{- end }}
       {{- end }}
       {{- with .Values.envoy.extraVolumes }}

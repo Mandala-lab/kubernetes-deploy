@@ -14,15 +14,15 @@ metadata:
     {{- end }}
 spec:
   endpoints:
-  - targetPort: {{ .Values.exporter.port }}
+    - targetPort: {{ .Values.exporter.port }}
 {{- if .Values.exporter.serviceMonitor.interval }}
-    interval: {{ .Values.exporter.serviceMonitor.interval }}
+      interval: {{ .Values.exporter.serviceMonitor.interval }}
 {{- end }}
 {{- if .Values.exporter.serviceMonitor.telemetryPath }}
-    path: {{ .Values.exporter.serviceMonitor.telemetryPath }}
+      path: {{ .Values.exporter.serviceMonitor.telemetryPath }}
 {{- end }}
 {{- if .Values.exporter.serviceMonitor.timeout }}
-    scrapeTimeout: {{ .Values.exporter.serviceMonitor.timeout }}
+      scrapeTimeout: {{ .Values.exporter.serviceMonitor.timeout }}
 {{- end }}
 {{- with .Values.exporter.serviceMonitor.endpointAdditionalProperties }}
 {{- toYaml . | nindent 4 }}
@@ -30,7 +30,7 @@ spec:
   jobLabel: {{ template "redis-ha.fullname" . }}
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace | quote }}
+      - {{ .Release.Namespace | quote }}
   selector:
     matchLabels:
       app: {{ template "redis-ha.name" . }}

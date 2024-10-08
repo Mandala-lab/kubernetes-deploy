@@ -26,20 +26,20 @@ spec:
       k8s-app: cilium-envoy
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace }}
+      - {{ .Release.Namespace }}
   endpoints:
-  - port: envoy-metrics
-    interval: {{ .Values.envoy.prometheus.serviceMonitor.interval | quote }}
-    honorLabels: true
-    path: /metrics
+    - port: envoy-metrics
+      interval: {{ .Values.envoy.prometheus.serviceMonitor.interval | quote }}
+      honorLabels: true
+      path: /metrics
     {{- with .Values.envoy.prometheus.serviceMonitor.relabelings }}
-    relabelings:
+      relabelings:
     {{- toYaml . | nindent 4 }}
     {{- end }}
     {{- with .Values.envoy.prometheus.serviceMonitor.metricRelabelings }}
-    metricRelabelings:
+      metricRelabelings:
     {{- toYaml . | nindent 4 }}
     {{- end }}
   targetLabels:
-  - k8s-app
+    - k8s-app
 {{- end }}

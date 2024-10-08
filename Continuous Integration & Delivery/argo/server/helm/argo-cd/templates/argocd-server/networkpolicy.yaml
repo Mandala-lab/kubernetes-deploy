@@ -8,10 +8,10 @@ metadata:
   namespace: {{ .Release.Namespace | quote }}
 spec:
   ingress:
-  - {}
+    - { }
   podSelector:
     matchLabels:
       {{- include "argo-cd.selectorLabels" (dict "context" . "name" .Values.server.name) | nindent 6 }}
   policyTypes:
-  - Ingress
+    - Ingress
 {{- end }}

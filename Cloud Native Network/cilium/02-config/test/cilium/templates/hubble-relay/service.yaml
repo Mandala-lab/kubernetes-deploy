@@ -17,14 +17,14 @@ spec:
   selector:
     k8s-app: hubble-relay
   ports:
-  - protocol: TCP
+    - protocol: TCP
   {{- if .Values.hubble.relay.servicePort }}
-    port: {{ .Values.hubble.relay.servicePort }}
+      port: {{ .Values.hubble.relay.servicePort }}
   {{- else }}
-    port: {{ .Values.hubble.relay.tls.server.enabled | ternary 443 80 }}
+      port: {{ .Values.hubble.relay.tls.server.enabled | ternary 443 80 }}
   {{- end }}
-    targetPort: {{ .Values.hubble.relay.listenPort }}
+      targetPort: {{ .Values.hubble.relay.listenPort }}
     {{- if and (eq "NodePort" .Values.hubble.relay.service.type) .Values.hubble.relay.service.nodePort }}
-    nodePort: {{ .Values.hubble.relay.service.nodePort }}
+      nodePort: {{ .Values.hubble.relay.service.nodePort }}
     {{- end }}
 {{- end }}

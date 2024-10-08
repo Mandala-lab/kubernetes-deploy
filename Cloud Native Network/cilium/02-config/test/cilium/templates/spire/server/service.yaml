@@ -20,10 +20,10 @@ metadata:
 spec:
   type: {{ .Values.authentication.mutual.spire.install.server.service.type }}
   ports:
-  - name: grpc
-    port: 8081
-    targetPort: grpc
-    protocol: TCP
+    - name: grpc
+      port: 8081
+      targetPort: grpc
+      protocol: TCP
   selector:
     app: spire-server
 {{- end }}

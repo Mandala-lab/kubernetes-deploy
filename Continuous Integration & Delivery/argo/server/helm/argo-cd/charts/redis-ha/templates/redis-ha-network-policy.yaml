@@ -26,17 +26,17 @@ spec:
     - Egress
   egress:
     - to:
-      - podSelector: 
-          matchLabels:
-            release: {{ .Release.Name }}
-            app: {{ template "redis-ha.name" . }}
+        - podSelector:
+            matchLabels:
+              release: {{ .Release.Name }}
+              app: {{ template "redis-ha.name" . }}
       ports:
         - port: {{ .Values.redis.port }}
           protocol: TCP
         - port: {{ .Values.sentinel.port }}
           protocol: TCP
     - to:
-      - namespaceSelector: {}
+        - namespaceSelector: { }
       ports:
         - port: 53
           protocol: UDP
@@ -50,11 +50,11 @@ spec:
 {{- end }}
   ingress:
     - from:
-      - podSelector:
-          matchLabels:
-            release: {{ .Release.Name }}
-            app: {{ template "redis-ha.name" . }}
-      ports: 
+        - podSelector:
+            matchLabels:
+              release: {{ .Release.Name }}
+              app: {{ template "redis-ha.name" . }}
+      ports:
         - port: {{ .Values.redis.port }}
           protocol: TCP
         - port: {{ .Values.sentinel.port }}

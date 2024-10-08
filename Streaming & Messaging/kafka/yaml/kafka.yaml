@@ -18,7 +18,7 @@ spec:
       containers:
         - name: kafka-ui               # 容器名称
           image: provectuslabs/kafka-ui:latest  # 容器映像
-          env:                                  # 数组格式 可设置多组
+          env: # 数组格式 可设置多组
             - name: KAFKA_CLUSTERS_0_NAME         # Kafka集群0的名称变量
               value: "K8 Kafka Cluster"           # 注意：请自定义名称
             - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS   #Kafka集群的服务器地址变量

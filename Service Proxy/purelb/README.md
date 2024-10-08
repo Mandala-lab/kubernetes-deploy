@@ -4,6 +4,7 @@
 
 配置文件:
 标准的配置文件:
+
 ```yaml
 apiVersion: purelb.io/v1
 kind: ServiceGroup
@@ -26,7 +27,7 @@ spec:
 ```
 
 参数说明:
-IPv4: 
+IPv4:
 .spec.local.v4pools: 本地ipv4地址池
 .spec.local.v4pools.subnet: 包含所有池地址的子网。PureLB 使用此信息来计算如何将地址添加到集群中。
 .spec.local.v4pools.pool: 将分配的地址的特定范围。可以表示为 CIDR 或地址范围
@@ -41,15 +42,19 @@ IPv6:
 在svc添加注解:
 
 把`<ipam-name>`替换成你的ipam名称
+
 ```yaml
 kubectl annotate svc <your-service-name> purelb.io/service-group=layer2-ippool
 ```
 
 或者手动编辑:
+
 ```shell
 kubectl edit svc <your-service-name>
 ```
+
 然后再metadata.annotations下添加`purelb.io/service-group: <ipam-name>`
+
 ```
 
 ...
@@ -60,4 +65,5 @@ metadata:
 ```
 
 ## 资料
+
 1. https://purelb.gitlab.io/docs/install/

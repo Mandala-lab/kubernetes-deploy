@@ -14,7 +14,7 @@ roleRef:
   kind: ClusterRole
   name: cilium-operator
 subjects:
-- kind: ServiceAccount
-  name: {{ .Values.serviceAccounts.operator.name | quote }}
-  namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccounts.operator.name | quote }}
+    namespace: {{ .Release.Namespace }}
 {{- end }}

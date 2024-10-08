@@ -84,15 +84,15 @@ description: eBPF-based Networking, Security, and Observability
 home: https://cilium.io/
 icon: https://cdn.jsdelivr.net/gh/cilium/cilium@v1.15/Documentation/images/logo-solo.svg
 keywords:
-- BPF
-- eBPF
-- Kubernetes
-- Networking
-- Security
-- Observability
-- Troubleshooting
+  - BPF
+  - eBPF
+  - Kubernetes
+  - Networking
+  - Security
+  - Observability
+  - Troubleshooting
 kubeVersion: '>= 1.16.0-0'
 name: cilium
 sources:
-- https://github.com/cilium/cilium
+  - https://github.com/cilium/cilium
 version: 1.15.1

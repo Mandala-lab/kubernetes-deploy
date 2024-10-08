@@ -10,8 +10,8 @@ metadata:
     {{ $key }}: {{ $value | quote }}
     {{- end }}
 subjects:
-- kind: ServiceAccount
-  name: {{ template "redis-ha.serviceAccountName" . }}
+  - kind: ServiceAccount
+    name: {{ template "redis-ha.serviceAccountName" . }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role

@@ -19,15 +19,15 @@ spec:
   selector:
     k8s-app: cilium
   ports:
-  - name: metrics
-    port: {{ .Values.prometheus.port }}
-    protocol: TCP
-    targetPort: prometheus
+    - name: metrics
+      port: {{ .Values.prometheus.port }}
+      protocol: TCP
+      targetPort: prometheus
   {{- if not .Values.envoy.enabled }}
-  - name: envoy-metrics
-    port: {{ .Values.proxy.prometheus.port | default .Values.envoy.prometheus.port }}
-    protocol: TCP
-    targetPort: envoy-metrics
+    - name: envoy-metrics
+      port: {{ .Values.proxy.prometheus.port | default .Values.envoy.prometheus.port }}
+      protocol: TCP
+      targetPort: envoy-metrics
   {{- end }}
 {{- else if and .Values.proxy.prometheus.enabled .Values.envoy.prometheus.enabled (not .Values.envoy.enabled) }}
 apiVersion: v1
@@ -48,9 +48,9 @@ spec:
   selector:
     k8s-app: cilium
   ports:
-  - name: envoy-metrics
-    port: {{ .Values.proxy.prometheus.port | default .Values.envoy.prometheus.port }}
-    protocol: TCP
-    targetPort: envoy-metrics
+    - name: envoy-metrics
+      port: {{ .Values.proxy.prometheus.port | default .Values.envoy.prometheus.port }}
+      protocol: TCP
+      targetPort: envoy-metrics
 {{- end }}
 {{- end }}

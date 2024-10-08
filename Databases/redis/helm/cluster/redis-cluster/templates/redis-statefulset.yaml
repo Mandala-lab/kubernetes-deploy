@@ -93,7 +93,7 @@ spec:
           {{- else if .Values.redis.command }}
           command: {{- include "common.tplvalues.render" (dict "value" .Values.redis.command "context" $) | nindent 12 }}
           {{- else }}
-          command: ['/bin/bash', '-c']
+          command: [ '/bin/bash', '-c' ]
           {{- end }}
           {{- if .Values.diagnosticMode.enabled }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.args "context" $) | nindent 12 }}
@@ -184,16 +184,16 @@ spec:
             {{- if .Values.tls.enabled }}
             - name: REDIS_TLS_PORT_NUMBER
               value: {{ .Values.redis.containerPorts.redis | quote }}
-            - name:  REDIS_TLS_AUTH_CLIENTS
+            - name: REDIS_TLS_AUTH_CLIENTS
               value: {{ ternary "yes" "no" .Values.tls.authClients | quote }}
-            - name:  REDIS_TLS_CERT_FILE
+            - name: REDIS_TLS_CERT_FILE
               value: {{ template "redis-cluster.tlsCert" . }}
-            - name:  REDIS_TLS_KEY_FILE
+            - name: REDIS_TLS_KEY_FILE
               value: {{ template "redis-cluster.tlsCertKey" . }}
-            - name:  REDIS_TLS_CA_FILE
+            - name: REDIS_TLS_CA_FILE
               value: {{ template "redis-cluster.tlsCACert" . }}
             {{- if .Values.tls.dhParamsFilename }}
-            - name:  REDIS_TLS_DH_PARAMS_FILE
+            - name: REDIS_TLS_DH_PARAMS_FILE
               value: {{ template "redis-cluster.tlsDHParams" . }}
             {{- end }}
             {{- else }}
@@ -391,7 +391,7 @@ spec:
         - name: volume-permissions
           image: {{ include "redis-cluster.volumePermissions.image" . }}
           imagePullPolicy: {{ .Values.volumePermissions.image.pullPolicy | quote }}
-          command: ["/bin/chown", "-R", "{{ .Values.containerSecurityContext.runAsUser }}:{{ .Values.podSecurityContext.fsGroup }}", "{{ .Values.persistence.path }}"]
+          command: [ "/bin/chown", "-R", "{{ .Values.containerSecurityContext.runAsUser }}:{{ .Values.podSecurityContext.fsGroup }}", "{{ .Values.persistence.path }}" ]
           securityContext:
             runAsUser: 0
           {{- if .Values.volumePermissions.resources }}
@@ -456,7 +456,7 @@ spec:
             path: /sys
         {{- end }}
         - name: empty-dir
-          emptyDir: {}
+          emptyDir: { }
         {{- if .Values.redis.extraVolumes }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.redis.extraVolumes "context" $ ) | nindent 8 }}
         {{- end }}
@@ -468,7 +468,7 @@ spec:
         {{- end }}
         {{- if not .Values.persistence.enabled }}
         - name: redis-data
-          emptyDir: {}
+          emptyDir: { }
         {{- end }}
   {{- if .Values.persistentVolumeClaimRetentionPolicy.enabled }}
   persistentVolumeClaimRetentionPolicy:

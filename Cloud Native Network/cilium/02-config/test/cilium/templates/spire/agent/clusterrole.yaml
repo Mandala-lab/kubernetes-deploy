@@ -8,8 +8,8 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 rules:
-# Required cluster role to allow spire-agent to query k8s API server
-- apiGroups: [ "" ]
-  resources: [ "pods","nodes","nodes/proxy" ]
-  verbs: [ "get" ]
+  # Required cluster role to allow spire-agent to query k8s API server
+  - apiGroups: [ "" ]
+    resources: [ "pods","nodes","nodes/proxy" ]
+    verbs: [ "get" ]
 {{- end }}

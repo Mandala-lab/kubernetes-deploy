@@ -16,14 +16,14 @@ spec:
   selector:
     k8s-app: cilium
   ports:
-  - name: peer-service
+    - name: peer-service
     {{- if .Values.hubble.peerService.servicePort }}
-    port: {{ .Values.hubble.peerService.servicePort }}
+      port: {{ .Values.hubble.peerService.servicePort }}
     {{- else }}
-    port: {{ .Values.hubble.tls.enabled | ternary 443 80 }}
+      port: {{ .Values.hubble.tls.enabled | ternary 443 80 }}
     {{- end }}
-    protocol: TCP
-    targetPort: {{ .Values.hubble.peerService.targetPort }}
+      protocol: TCP
+      targetPort: {{ .Values.hubble.peerService.targetPort }}
 {{- if semverCompare ">=1.22-0" .Capabilities.KubeVersion.GitVersion }}
   internalTrafficPolicy: Local
 {{- end }}

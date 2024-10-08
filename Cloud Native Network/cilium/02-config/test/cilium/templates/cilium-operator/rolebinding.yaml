@@ -39,7 +39,7 @@ roleRef:
   kind: Role
   name: cilium-operator-gateway-secrets
 subjects:
-- kind: ServiceAccount
-  name: {{ .Values.serviceAccounts.operator.name | quote }}
-  namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccounts.operator.name | quote }}
+    namespace: {{ .Release.Namespace }}
 {{- end }}

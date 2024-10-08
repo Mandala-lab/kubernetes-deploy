@@ -9,8 +9,8 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 rules:
-# Role (namespace scoped) to be able to push certificate bundles to a configmap
-- apiGroups: [ "" ]
-  resources: [ "configmaps" ]
-  verbs: [ "patch", "get", "list" ]
+  # Role (namespace scoped) to be able to push certificate bundles to a configmap
+  - apiGroups: [ "" ]
+    resources: [ "configmaps" ]
+    verbs: [ "patch", "get", "list" ]
 {{- end }}

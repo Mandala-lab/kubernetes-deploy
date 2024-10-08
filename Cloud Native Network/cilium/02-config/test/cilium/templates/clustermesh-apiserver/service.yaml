@@ -22,9 +22,9 @@ spec:
   selector:
     k8s-app: clustermesh-apiserver
   ports:
-  - port: 2379
+    - port: 2379
     {{- if and (eq "NodePort" .Values.clustermesh.apiserver.service.type) .Values.clustermesh.apiserver.service.nodePort }}
-    nodePort: {{ .Values.clustermesh.apiserver.service.nodePort }}
+      nodePort: {{ .Values.clustermesh.apiserver.service.nodePort }}
     {{- end }}
   {{- if and (eq "LoadBalancer" .Values.clustermesh.apiserver.service.type) .Values.clustermesh.apiserver.service.loadBalancerIP }}
   loadBalancerIP: {{ .Values.clustermesh.apiserver.service.loadBalancerIP }}

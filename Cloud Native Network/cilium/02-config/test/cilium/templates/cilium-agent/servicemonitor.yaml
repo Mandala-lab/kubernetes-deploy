@@ -25,36 +25,36 @@ spec:
       k8s-app: cilium
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace }}
+      - {{ .Release.Namespace }}
   endpoints:
-  - port: metrics
-    interval: {{ .Values.prometheus.serviceMonitor.interval | quote }}
-    honorLabels: true
-    path: /metrics
+    - port: metrics
+      interval: {{ .Values.prometheus.serviceMonitor.interval | quote }}
+      honorLabels: true
+      path: /metrics
     {{- with .Values.prometheus.serviceMonitor.relabelings }}
-    relabelings:
+      relabelings:
     {{- toYaml . | nindent 4 }}
     {{- end }}
     {{- with .Values.prometheus.serviceMonitor.metricRelabelings }}
-    metricRelabelings:
+      metricRelabelings:
     {{- toYaml . | nindent 4 }}
     {{- end }}
   {{- if .Values.envoy.prometheus.serviceMonitor.enabled }}
-  - port: envoy-metrics
-    interval: {{ .Values.envoy.prometheus.serviceMonitor.interval | quote }}
-    honorLabels: true
-    path: /metrics
+    - port: envoy-metrics
+      interval: {{ .Values.envoy.prometheus.serviceMonitor.interval | quote }}
+      honorLabels: true
+      path: /metrics
     {{- with .Values.envoy.prometheus.serviceMonitor.relabelings }}
-    relabelings:
+      relabelings:
     {{- toYaml . | nindent 4 }}
     {{- end }}
     {{- with .Values.envoy.prometheus.serviceMonitor.metricRelabelings }}
-    metricRelabelings:
+      metricRelabelings:
     {{- toYaml . | nindent 4 }}
     {{- end }}
   {{- end }}
   targetLabels:
-  - k8s-app
+    - k8s-app
 {{- if .Values.prometheus.serviceMonitor.jobLabel }}
   jobLabel: {{ .Values.prometheus.serviceMonitor.jobLabel | quote }}
 {{- end }}

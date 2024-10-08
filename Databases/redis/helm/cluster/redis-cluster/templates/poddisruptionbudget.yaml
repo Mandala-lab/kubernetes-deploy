@@ -18,6 +18,6 @@ spec:
   selector:
     matchLabels: {{- include "common.labels.matchLabels" ( dict "customLabels" $podLabels "context" $ ) | nindent 6 }}
     matchExpressions:
-      - {key: job-name, operator: NotIn, values: [{{ template "common.names.fullname" . }}-cluster-update]}
+      - { key: job-name, operator: NotIn, values: [{{ template "common.names.fullname" . }}-cluster-update ] }
   {{- toYaml .Values.podDisruptionBudget | nindent 2 }}
 {{- end }}

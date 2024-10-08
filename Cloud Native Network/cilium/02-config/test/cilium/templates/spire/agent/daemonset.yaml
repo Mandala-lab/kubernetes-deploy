@@ -56,7 +56,7 @@ spec:
           image: {{ include "cilium.image" .Values.authentication.mutual.spire.install.agent.image | quote }}
           imagePullPolicy: {{ .Values.authentication.mutual.spire.install.agent.image.pullPolicy }}
           {{- end }}
-          args: ["-config", "/run/spire/config/agent.conf"]
+          args: [ "-config", "/run/spire/config/agent.conf" ]
           {{- with .Values.authentication.mutual.spire.install.agent.securityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
@@ -103,7 +103,7 @@ spec:
         {{- with .Values.authentication.mutual.spire.install.agent.tolerations }}
           {{- toYaml . | trim | nindent 8 }}
         {{- end }}
-        - key:  {{ .Values.agentNotReadyTaintKey | default "node.cilium.io/agent-not-ready" }}
+        - key: {{ .Values.agentNotReadyTaintKey | default "node.cilium.io/agent-not-ready" }}
           effect: NoSchedule
       volumes:
         - name: spire-config
@@ -119,8 +119,8 @@ spec:
         - name: spire-agent
           projected:
             sources:
-            - serviceAccountToken:
-                path: spire-agent
-                expirationSeconds: 600
-                audience: spire-server
+              - serviceAccountToken:
+                  path: spire-agent
+                  expirationSeconds: 600
+                  audience: spire-server
 {{- end }}

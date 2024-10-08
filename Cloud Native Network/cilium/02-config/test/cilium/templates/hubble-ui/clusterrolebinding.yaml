@@ -14,7 +14,7 @@ roleRef:
   kind: ClusterRole
   name: hubble-ui
 subjects:
-- kind: ServiceAccount
-  name: {{ .Values.serviceAccounts.ui.name | quote }}
-  namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccounts.ui.name | quote }}
+    namespace: {{ .Release.Namespace }}
 {{- end }}

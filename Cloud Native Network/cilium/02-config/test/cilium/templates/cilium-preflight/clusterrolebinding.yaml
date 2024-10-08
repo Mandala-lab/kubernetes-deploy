@@ -14,7 +14,7 @@ roleRef:
   kind: ClusterRole
   name: cilium-pre-flight
 subjects:
-- kind: ServiceAccount
-  name: {{ .Values.serviceAccounts.preflight.name | quote }} 
-  namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccounts.preflight.name | quote }}
+    namespace: {{ .Release.Namespace }}
 {{- end }}

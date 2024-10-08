@@ -2,7 +2,7 @@ expose:
   # Set how to expose the service. Set the type as "ingress", "clusterIP", "nodePort" or "loadBalancer"
   # and fill the information in the corresponding section
   type: ingress
-#  type: loadBalancer
+  #  type: loadBalancer
   tls:
     # Enable TLS or not.
     # Delete the "ssl-redirect" annotations in "expose.ingress.annotations" when TLS is disabled and "expose.type" is "ingress"
@@ -49,16 +49,16 @@ expose:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
     harbor:
       # harbor ingress-specific annotations
-      annotations: {}
+      annotations: { }
       # harbor ingress-specific labels
-      labels: {}
+      labels: { }
   clusterIP:
     # The name of ClusterIP service
     name: harbor
     # The ip address of the ClusterIP service (leave empty for acquiring dynamic ip)
     staticClusterIP: ""
     # Annotations on the ClusterIP service
-    annotations: {}
+    annotations: { }
     ports:
       # The service port Harbor listens on when serving HTTP
       httpPort: 80
@@ -83,14 +83,14 @@ expose:
     name: harbor
     # Set the IP if the LoadBalancer supports assigning IP
     IP: ""
-#    IP: "192.168.2.181"
+    #    IP: "192.168.2.181"
     ports:
       # The service port Harbor listens on when serving HTTP
       httpPort: 80
       # The service port Harbor listens on when serving HTTPS
       httpsPort: 443
-    annotations: {}
-    sourceRanges: []
+    annotations: { }
+    sourceRanges: [ ]
 
 # The external URL for Harbor core service. It is used to
 # 1) populate the docker/helm commands showed on portal
@@ -197,7 +197,7 @@ persistence:
       subPath: ""
       accessMode: ReadWriteOnce
       size: 5Gi
-      annotations: {}
+      annotations: { }
     jobservice:
       jobLog:
         existingClaim: ""
@@ -205,7 +205,7 @@ persistence:
         subPath: ""
         accessMode: ReadWriteOnce
         size: 1Gi
-        annotations: {}
+        annotations: { }
     # If external database is used, the following settings for database will
     # be ignored
     database:
@@ -214,7 +214,7 @@ persistence:
       subPath: ""
       accessMode: ReadWriteOnce
       size: 1Gi
-      annotations: {}
+      annotations: { }
     # If external Redis is used, the following settings for Redis will
     # be ignored
     redis:
@@ -223,14 +223,14 @@ persistence:
       subPath: ""
       accessMode: ReadWriteOnce
       size: 1Gi
-      annotations: {}
+      annotations: { }
     trivy:
       existingClaim: ""
       storageClass: ""
       subPath: ""
       accessMode: ReadWriteOnce
       size: 5Gi
-      annotations: {}
+      annotations: { }
   # Define which storage backend is used for registry to store
   # images and charts. Refer to
   # https://github.com/distribution/distribution/blob/main/docs/configuration.md#storage
@@ -399,20 +399,20 @@ nginx:
   #  requests:
   #    memory: 256Mi
   #    cpu: 100m
-  extraEnvVars: []
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+  extraEnvVars: [ ]
+  nodeSelector: { }
+  tolerations: [ ]
+  affinity: { }
   # Spread Pods across failure-domains like regions, availability zones or nodes
-  topologySpreadConstraints: []
+  topologySpreadConstraints: [ ]
   # - maxSkew: 1
   #   topologyKey: topology.kubernetes.io/zone
   #   nodeTaintsPolicy: Honor
   #   whenUnsatisfiable: DoNotSchedule
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations: { }
   ## Additional deployment labels
-  podLabels: {}
+  podLabels: { }
   ## The priority class to run the pod as
   priorityClassName:
 
@@ -430,22 +430,22 @@ portal:
   #  requests:
   #    memory: 256Mi
   #    cpu: 100m
-  extraEnvVars: []
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+  extraEnvVars: [ ]
+  nodeSelector: { }
+  tolerations: [ ]
+  affinity: { }
   # Spread Pods across failure-domains like regions, availability zones or nodes
-  topologySpreadConstraints: []
+  topologySpreadConstraints: [ ]
   # - maxSkew: 1
   #   topologyKey: topology.kubernetes.io/zone
   #   nodeTaintsPolicy: Honor
   #   whenUnsatisfiable: DoNotSchedule
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations: { }
   ## Additional deployment labels
-  podLabels: {}
+  podLabels: { }
   ## Additional service annotations
-  serviceAnnotations: {}
+  serviceAnnotations: { }
   ## The priority class to run the pod as
   priorityClassName:
 
@@ -467,22 +467,22 @@ core:
   #  requests:
   #    memory: 256Mi
   #    cpu: 100m
-  extraEnvVars: []
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+  extraEnvVars: [ ]
+  nodeSelector: { }
+  tolerations: [ ]
+  affinity: { }
   # Spread Pods across failure-domains like regions, availability zones or nodes
-  topologySpreadConstraints: []
+  topologySpreadConstraints: [ ]
   # - maxSkew: 1
   #   topologyKey: topology.kubernetes.io/zone
   #   nodeTaintsPolicy: Honor
   #   whenUnsatisfiable: DoNotSchedule
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations: { }
   ## Additional deployment labels
-  podLabels: {}
+  podLabels: { }
   ## Additional service annotations
-  serviceAnnotations: {}
+  serviceAnnotations: { }
   ## User settings configuration json string
   configureUserSettings:
   # The provider for updating project quota(usage), there are 2 options, redis or db.
@@ -559,10 +559,10 @@ jobservice:
   #   requests:
   #     memory: 256Mi
   #     cpu: 100m
-  extraEnvVars: []
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+  extraEnvVars: [ ]
+  nodeSelector: { }
+  tolerations: [ ]
+  affinity: { }
   # Spread Pods across failure-domains like regions, availability zones or nodes
   topologySpreadConstraints:
   # - maxSkew: 1
@@ -570,9 +570,9 @@ jobservice:
   #   nodeTaintsPolicy: Honor
   #   whenUnsatisfiable: DoNotSchedule
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations: { }
   ## Additional deployment labels
-  podLabels: {}
+  podLabels: { }
   # Secret is used when job service communicates with other components.
   # If a secret key is not specified, Helm will generate one.
   # Must be a string of 16 chars.
@@ -597,7 +597,7 @@ registry:
     #  requests:
     #    memory: 256Mi
     #    cpu: 100m
-    extraEnvVars: []
+    extraEnvVars: [ ]
   controller:
     image:
       repository: goharbor/harbor-registryctl
@@ -607,22 +607,22 @@ registry:
     #  requests:
     #    memory: 256Mi
     #    cpu: 100m
-    extraEnvVars: []
+    extraEnvVars: [ ]
   replicas: 1
   revisionHistoryLimit: 10
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+  nodeSelector: { }
+  tolerations: [ ]
+  affinity: { }
   # Spread Pods across failure-domains like regions, availability zones or nodes
-  topologySpreadConstraints: []
+  topologySpreadConstraints: [ ]
   # - maxSkew: 1
   #   topologyKey: topology.kubernetes.io/zone
   #   nodeTaintsPolicy: Honor
   #   whenUnsatisfiable: DoNotSchedule
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations: { }
   ## Additional deployment labels
-  podLabels: {}
+  podLabels: { }
   ## The priority class to run the pod as
   priorityClassName:
   # Secret is used to secure the upload state from client
@@ -730,20 +730,20 @@ trivy:
     limits:
       cpu: 1
       memory: 1Gi
-  extraEnvVars: []
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+  extraEnvVars: [ ]
+  nodeSelector: { }
+  tolerations: [ ]
+  affinity: { }
   # Spread Pods across failure-domains like regions, availability zones or nodes
-  topologySpreadConstraints: []
+  topologySpreadConstraints: [ ]
   # - maxSkew: 1
   #   topologyKey: topology.kubernetes.io/zone
   #   nodeTaintsPolicy: Honor
   #   whenUnsatisfiable: DoNotSchedule
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations: { }
   ## Additional deployment labels
-  podLabels: {}
+  podLabels: { }
   ## The priority class to run the pod as
   priorityClassName:
 
@@ -775,19 +775,19 @@ database:
     # The timeout used in readinessProbe; 1 to 5 seconds
     readinessProbe:
       timeoutSeconds: 1
-    extraEnvVars: []
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
+    extraEnvVars: [ ]
+    nodeSelector: { }
+    tolerations: [ ]
+    affinity: { }
     ## The priority class to run the pod as
     priorityClassName:
     initContainer:
-      migrator: {}
+      migrator: { }
       # resources:
       #  requests:
       #    memory: 128Mi
       #    cpu: 100m
-      permissions: {}
+      permissions: { }
       # resources:
       #  requests:
       #    memory: 128Mi
@@ -816,9 +816,9 @@ database:
   # Note: the default number of connections is 1024 for postgre of harbor.
   maxOpenConns: 900
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations: { }
   ## Additional deployment labels
-  podLabels: {}
+  podLabels: { }
 
 redis:
   # if external Redis is used, set "type" to "external"
@@ -836,10 +836,10 @@ redis:
     #  requests:
     #    memory: 256Mi
     #    cpu: 100m
-    extraEnvVars: []
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
+    extraEnvVars: [ ]
+    nodeSelector: { }
+    tolerations: [ ]
+    affinity: { }
     ## The priority class to run the pod as
     priorityClassName:
     # # jobserviceDatabaseIndex defaults to "1"
@@ -875,9 +875,9 @@ redis:
     # If using existingSecret, the key must be REDIS_PASSWORD
     existingSecret: ""
   ## Additional deployment annotations
-  podAnnotations: {}
+  podAnnotations: { }
   ## Additional deployment labels
-  podLabels: {}
+  podLabels: { }
 
 exporter:
   replicas: 1
@@ -886,21 +886,21 @@ exporter:
   #  requests:
   #    memory: 256Mi
   #    cpu: 100m
-  extraEnvVars: []
-  podAnnotations: {}
+  extraEnvVars: [ ]
+  podAnnotations: { }
   ## Additional deployment labels
-  podLabels: {}
+  podLabels: { }
   serviceAccountName: ""
   # mount the service account token
   automountServiceAccountToken: false
   image:
     repository: goharbor/harbor-exporter
     tag: v2.10.0
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+  nodeSelector: { }
+  tolerations: [ ]
+  affinity: { }
   # Spread Pods across failure-domains like regions, availability zones or nodes
-  topologySpreadConstraints: []
+  topologySpreadConstraints: [ ]
   # - maxSkew: 1
   #   topologyKey: topology.kubernetes.io/zone
   #   nodeTaintsPolicy: Honor
@@ -930,23 +930,23 @@ metrics:
   ##
   serviceMonitor:
     enabled: false
-    additionalLabels: {}
+    additionalLabels: { }
     # Scrape interval. If not set, the Prometheus default scrape interval is used.
     interval: ""
     # Metric relabel configs to apply to samples before ingestion.
     metricRelabelings:
-      []
+      [ ]
       # - action: keep
-      #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
+    #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
     #   sourceLabels: [__name__]
     # Relabel configs to apply to samples before ingestion.
     relabelings:
-      []
+      [ ]
       # - sourceLabels: [__meta_kubernetes_pod_node_name]
       #   separator: ;
       #   regex: ^(.*)$
       #   targetLabel: nodename
-      #   replacement: $1
+    #   replacement: $1
     #   action: replace
 
 trace:

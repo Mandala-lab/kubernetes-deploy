@@ -97,7 +97,7 @@ spec:
           securityContext:
             privileged: true
             capabilities:
-              add: ["SYS_ADMIN"]
+              add: [ "SYS_ADMIN" ]
             allowPrivilegeEscalation: true
           imagePullPolicy: IfNotPresent
           args:
@@ -141,4 +141,4 @@ spec:
             path: /var/lib/kubelet/pods
             type: Directory
         - name: socket-dir
-          emptyDir: {}
+          emptyDir: { }

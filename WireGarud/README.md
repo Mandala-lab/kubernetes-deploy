@@ -1,17 +1,20 @@
 ## apt/apt-get
 
 检查是否内置
+
 ```shell
 wg -v
 ```
 
 默认自带, 如果没有安装请手动安装:
+
 ```
 apt install openresolv
 apt install wireguard-tools
 ```
 
 客户端样板代码:
+
 ```
 cat > /etc/wireguard/wg0.conf <<EOF
 [Interface]
@@ -29,6 +32,7 @@ EOF
 ```
 
 Nginx代理
+
 ```
 cat> /usr/local/nginx/conf/casdoor.conf <<EOF
 server {
@@ -56,6 +60,7 @@ EOF
 ```
 
 ## yum/dnf
+
 ```shell
 dnf install wireguard-tools
 ```
@@ -105,7 +110,6 @@ Now that the NetworkManager is configured, you are now ready to set up the wireg
 wg-quick up wg0
 ```
 
-
 Now verify the '_**wg-client1**_' interface via the ip command below.  
 现在通过下面的 ip 命令验证“wg-client1”接口。
 
@@ -121,6 +125,7 @@ resolvectl status wg0
 ```
 
 ## 参考
+
 1. https://www.howtoforge.com/how-to-install-wireguard-vpn-on-rocky-linux-9/
 2. https://linuxiac.com/how-to-set-up-wireguard-vpn-server-on-ubuntu/#step-31-generate-publicprivate-keypair
 3. https://www.cyberciti.biz/faq/ubuntu-20-04-set-up-wireguard-vpn-server/

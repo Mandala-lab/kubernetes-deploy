@@ -10,7 +10,7 @@ roleRef:
   kind: ClusterRole
   name: {{ include "argo-cd.notifications.fullname" . }}
 subjects:
-- kind: ServiceAccount
-  name: {{ include "argo-cd.notifications.serviceAccountName" . }}
-  namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: {{ include "argo-cd.notifications.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
 {{- end }}

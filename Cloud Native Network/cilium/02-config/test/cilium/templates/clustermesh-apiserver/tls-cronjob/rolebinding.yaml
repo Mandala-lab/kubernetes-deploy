@@ -15,7 +15,7 @@ roleRef:
   kind: Role
   name: clustermesh-apiserver-generate-certs
 subjects:
-- kind: ServiceAccount
-  name: {{ .Values.serviceAccounts.clustermeshcertgen.name | quote }}
-  namespace: {{ .Release.Namespace }}
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccounts.clustermeshcertgen.name | quote }}
+    namespace: {{ .Release.Namespace }}
 {{- end }}

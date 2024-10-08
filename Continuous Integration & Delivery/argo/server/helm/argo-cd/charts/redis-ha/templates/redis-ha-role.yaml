@@ -10,10 +10,10 @@ metadata:
     {{ $key }}: {{ $value | quote }}
     {{- end }}
 rules:
-- apiGroups:
-    - ""
-  resources:
-    - endpoints
-  verbs:
-    - get
+  - apiGroups:
+      - ""
+    resources:
+      - endpoints
+    verbs:
+      - get
 {{- end }}

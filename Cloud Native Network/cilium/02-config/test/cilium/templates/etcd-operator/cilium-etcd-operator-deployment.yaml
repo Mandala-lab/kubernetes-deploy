@@ -45,12 +45,12 @@ spec:
 {{- with .Values.etcd.topologySpreadConstraints }}
       topologySpreadConstraints:
         {{- range $constraint := . }}
-      - {{ toYaml $constraint | nindent 8 | trim }}
+        - {{ toYaml $constraint | nindent 8 | trim }}
           {{- if not $constraint.labelSelector }}
-        labelSelector:
-          matchLabels:
-            io.cilium/app: etcd-operator
-            name: cilium-etcd-operator
+          labelSelector:
+            matchLabels:
+              io.cilium/app: etcd-operator
+              name: cilium-etcd-operator
           {{- end }}
         {{- end }}
 {{- end }}
@@ -63,47 +63,47 @@ spec:
         {{- toYaml . | nindent 8 }}
 {{- end }}
       containers:
-      - args:
+        - args:
 {{- with .Values.etcd.extraArgs }}
         {{- toYaml . | trim | nindent 8 }}
 {{- end }}
-        #- --etcd-node-selector=disktype=ssd,cputype=high
-        command:
-        - /usr/bin/cilium-etcd-operator
-        env:
-        - name: CILIUM_ETCD_OPERATOR_CLUSTER_DOMAIN
-          value: "{{ .Values.etcd.clusterDomain }}"
-        - name: CILIUM_ETCD_OPERATOR_ETCD_CLUSTER_SIZE
-          value: "{{ .Values.etcd.clusterSize }}"
-        - name: CILIUM_ETCD_OPERATOR_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
-        - name: CILIUM_ETCD_OPERATOR_POD_NAME
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.name
-        - name: CILIUM_ETCD_OPERATOR_POD_UID
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.uid
-        - name: CILIUM_ETCD_META_ETCD_AUTO_COMPACTION_MODE
-          value: "revision"
-        - name: CILIUM_ETCD_META_ETCD_AUTO_COMPACTION_RETENTION
-          value: "25000"
-        image: {{ include "cilium.image" .Values.etcd.image | quote }}
-        imagePullPolicy: {{ .Values.etcd.image.pullPolicy }}
-        name: cilium-etcd-operator
-        terminationMessagePolicy: FallbackToLogsOnError
+          #- --etcd-node-selector=disktype=ssd,cputype=high
+          command:
+            - /usr/bin/cilium-etcd-operator
+          env:
+            - name: CILIUM_ETCD_OPERATOR_CLUSTER_DOMAIN
+              value: "{{ .Values.etcd.clusterDomain }}"
+            - name: CILIUM_ETCD_OPERATOR_ETCD_CLUSTER_SIZE
+              value: "{{ .Values.etcd.clusterSize }}"
+            - name: CILIUM_ETCD_OPERATOR_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: CILIUM_ETCD_OPERATOR_POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: CILIUM_ETCD_OPERATOR_POD_UID
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.uid
+            - name: CILIUM_ETCD_META_ETCD_AUTO_COMPACTION_MODE
+              value: "revision"
+            - name: CILIUM_ETCD_META_ETCD_AUTO_COMPACTION_RETENTION
+              value: "25000"
+          image: {{ include "cilium.image" .Values.etcd.image | quote }}
+          imagePullPolicy: {{ .Values.etcd.image.pullPolicy }}
+          name: cilium-etcd-operator
+          terminationMessagePolicy: FallbackToLogsOnError
         {{- with .Values.etcd.securityContext }}
-        securityContext:
+          securityContext:
           {{- toYaml . | trim | nindent 8 }}
         {{- end }}
         {{- with .Values.etcd.extraVolumeMounts }}
-        volumeMounts:
+          volumeMounts:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       dnsPolicy: ClusterFirst

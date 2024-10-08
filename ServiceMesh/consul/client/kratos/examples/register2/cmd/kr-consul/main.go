@@ -5,7 +5,6 @@ import (
 	"github.com/go-kratos/kratos/v2/registry"
 	"os"
 
-	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/config"
 	"github.com/go-kratos/kratos/v2/config/file"
 	"github.com/go-kratos/kratos/v2/log"

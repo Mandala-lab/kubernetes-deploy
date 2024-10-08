@@ -25,10 +25,10 @@ spec:
   clusterIP: {{ .Values.controller.metrics.service.clusterIP }}
   {{- end }}
   ports:
-  - name: {{ .Values.controller.metrics.service.portName }}
-    protocol: TCP
-    port: {{ .Values.controller.metrics.service.servicePort }}
-    targetPort: metrics
+    - name: {{ .Values.controller.metrics.service.portName }}
+      protocol: TCP
+      port: {{ .Values.controller.metrics.service.servicePort }}
+      targetPort: metrics
   selector:
     {{- include "argo-cd.selectorLabels" (dict "context" . "name" .Values.controller.name) | nindent 4 }}
 {{- end }}

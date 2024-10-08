@@ -163,13 +163,13 @@ spec:
       served: true
       storage: true
       subresources:
-        status: {}
+        status: { }
 status:
   acceptedNames:
     kind: ""
     plural: ""
-  conditions: []
-  storedVersions: []
+  conditions: [ ]
+  storedVersions: [ ]
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -595,13 +595,13 @@ spec:
       served: true
       storage: true
       subresources:
-        status: {}
+        status: { }
 status:
   acceptedNames:
     kind: ""
     plural: ""
-  conditions: []
-  storedVersions: []
+  conditions: [ ]
+  storedVersions: [ ]
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -679,7 +679,7 @@ spec:
           type: object
       served: true
       storage: false
-      subresources: {}
+      subresources: { }
     - additionalPrinterColumns:
         - jsonPath: .spec.address
           name: cidr
@@ -753,13 +753,13 @@ spec:
       served: true
       storage: true
       subresources:
-        status: {}
+        status: { }
 status:
   acceptedNames:
     kind: ""
     plural: ""
-  conditions: []
-  storedVersions: []
+  conditions: [ ]
+  storedVersions: [ ]
 ---
 apiVersion: v1
 kind: ServiceAccount

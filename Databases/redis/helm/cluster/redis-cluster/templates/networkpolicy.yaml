@@ -22,15 +22,15 @@ spec:
     - Egress
   {{- if .Values.networkPolicy.allowExternalEgress }}
   egress:
-    - {}
+    - { }
   {{- else }}
   egress:
     # Allow dns resolution
     - ports:
-      - port: 53
-        protocol: TCP
-      - port: 53
-        protocol: UDP
+        - port: 53
+          protocol: TCP
+        - port: 53
+          protocol: UDP
     # Allow outbound connections to other cluster pods
     - ports:
         - port: {{ .Values.redis.containerPorts.redis }}
@@ -59,7 +59,7 @@ spec:
             matchLabels:
               {{ template "common.names.fullname" . }}-client: "true"
         - podSelector:
-             matchLabels: {{- include "common.labels.matchLabels" ( dict "customLabels" $podLabels "context" $ ) | nindent 14 }}
+            matchLabels: {{- include "common.labels.matchLabels" ( dict "customLabels" $podLabels "context" $ ) | nindent 14 }}
         {{- end }}
         {{- if .Values.networkPolicy.ingressNSMatchLabels }}
         - namespaceSelector:

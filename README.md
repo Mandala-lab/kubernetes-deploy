@@ -1,4 +1,4 @@
-# kubernetes-deploy
+# Kubernetes Cloud Native Deploy
 
 ## Observability and Analysis
 
@@ -11,10 +11,6 @@
 5. OpenTelemetry: 可观测性集合
 6. ELK/EFK: 分析/量化/查询
 7. Kiali: 应用链路图
-
-### Chaos Engineering
-
-1. Chaos Mesh: 故障模拟
 
 ## App Definition and Development
 

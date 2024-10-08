@@ -10,14 +10,14 @@ rules:
     {{- toYaml .Values.controller.clusterRoleRules.rules | nindent 2 }}
   {{- else }}
   - apiGroups:
-    - '*'
+      - '*'
     resources:
-    - '*'
+      - '*'
     verbs:
-    - '*'
+      - '*'
   - nonResourceURLs:
-    - '*'
+      - '*'
     verbs:
-    - '*'
+      - '*'
   {{- end }}
 {{- end }}

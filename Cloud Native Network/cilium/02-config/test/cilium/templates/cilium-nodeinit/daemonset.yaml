@@ -67,12 +67,12 @@ spec:
           {{- with .Values.nodeinit.extraEnv }}
           {{- toYaml . | trim | nindent 10 }}
           {{- end }}
-          # STARTUP_SCRIPT is the script run on node bootstrap. Node
-          # bootstrapping can be customized in this script. This script is invoked
-          # using nsenter, so it runs in the host's network and mount namespace using
-          # the host's userland tools!
-          - name: STARTUP_SCRIPT
-            value: |
+            # STARTUP_SCRIPT is the script run on node bootstrap. Node
+            # bootstrapping can be customized in this script. This script is invoked
+            # using nsenter, so it runs in the host's network and mount namespace using
+            # the host's userland tools!
+            - name: STARTUP_SCRIPT
+              value: |
               {{- tpl (.Files.Get "files/nodeinit/startup.bash") . | nindent 14 }}
           {{- with .Values.nodeinit.resources }}
           resources:

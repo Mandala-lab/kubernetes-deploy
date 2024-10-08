@@ -2,11 +2,14 @@
 
 # Bitnami package for Redis(R) Cluster
 
-Redis(R) is an open source, scalable, distributed in-memory cache for applications. It can be used to store and serve data in the form of strings, hashes, lists, sets and sorted sets.
+Redis(R) is an open source, scalable, distributed in-memory cache for applications. It can be used to store and serve
+data in the form of strings, hashes, lists, sets and sorted sets.
 
 [Overview of Redis&reg; Cluster](http://redis.io)
 
-Disclaimer: Redis is a registered trademark of Redis Ltd. Any rights therein are reserved to Redis Ltd. Any use by Bitnami is for referential purposes only and does not indicate any sponsorship, endorsement, or affiliation between Redis Ltd.
+Disclaimer: Redis is a registered trademark of Redis Ltd. Any rights therein are reserved to Redis Ltd. Any use by
+Bitnami is for referential purposes only and does not indicate any sponsorship, endorsement, or affiliation between
+Redis Ltd.
 
 ## TL;DR
 
@@ -14,24 +17,30 @@ Disclaimer: Redis is a registered trademark of Redis Ltd. Any rights therein are
 helm install my-release oci://registry-1.docker.io/bitnamicharts/redis-cluster
 ```
 
-Looking to use Redisreg; Cluster in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the enterprise edition of Bitnami Application Catalog.
+Looking to use Redisreg; Cluster in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise),
+the enterprise edition of Bitnami Application Catalog.
 
 ## Introduction
 
-This chart bootstraps a [Redis&reg;](https://github.com/bitnami/containers/tree/main/bitnami/redis) deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Redis&reg;](https://github.com/bitnami/containers/tree/main/bitnami/redis) deployment on
+a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-Bitnami charts can be used with [Kubeapps](https://kubeapps.dev/) for deployment and management of Helm Charts in clusters.
+Bitnami charts can be used with [Kubeapps](https://kubeapps.dev/) for deployment and management of Helm Charts in
+clusters.
 
 ### Choose between Redis&reg; Helm Chart and Redis&reg; Cluster Helm Chart
 
 You can choose any of the two Redis&reg; Helm charts for deploying a Redis&reg; cluster.
-While [Redis&reg; Helm Chart](https://github.com/bitnami/charts/tree/main/bitnami/redis) will deploy a master-slave cluster using Redis&reg; Sentinel, the [Redis&reg; Cluster Helm Chart](https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster) will deploy a Redis&reg; Cluster with sharding.
+While [Redis&reg; Helm Chart](https://github.com/bitnami/charts/tree/main/bitnami/redis) will deploy a master-slave
+cluster using Redis&reg; Sentinel,
+the [Redis&reg; Cluster Helm Chart](https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster) will deploy a
+Redis&reg; Cluster with sharding.
 The main features of each chart are the following:
 
 | Redis&reg;                                     | Redis&reg; Cluster                                             |
-|--------------------------------------------------------|------------------------------------------------------------------------|
-| Supports multiple databases                            | Supports only one database. Better if you have a big dataset           |
-| Single write point (single master)                     | Multiple write points (multiple masters)                               |
+|------------------------------------------------|----------------------------------------------------------------|
+| Supports multiple databases                    | Supports only one database. Better if you have a big dataset   |
+| Single write point (single master)             | Multiple write points (multiple masters)                       |
 | ![Redis&reg; Topology](img/redis-topology.png) | ![Redis&reg; Cluster Topology](img/redis-cluster-topology.png) |
 
 ## Prerequisites
@@ -48,61 +57,94 @@ To install the chart with the release name `my-release`:
 helm install my-release oci://REGISTRY_NAME/REPOSITORY_NAME/redis-cluster
 ```
 
-> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io` and `REPOSITORY_NAME=bitnamicharts`.
+> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm
+> chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io`
+> and `REPOSITORY_NAME=bitnamicharts`.
 
-The command deploys Redis&reg; on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+The command deploys Redis&reg; on the Kubernetes cluster in the default configuration. The [Parameters](#parameters)
+section lists the parameters that can be configured during installation.
 
-NOTE: if you get a timeout error waiting for the hook to complete increase the default timeout (300s) to a higher one, for example:
+NOTE: if you get a timeout error waiting for the hook to complete increase the default timeout (300s) to a higher one,
+for example:
 
 ```console
 helm install --timeout 600s myrelease oci://REGISTRY_NAME/REPOSITORY_NAME/redis-cluster
 ```
 
-> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io` and `REPOSITORY_NAME=bitnamicharts`.
+> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm
+> chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io`
+> and `REPOSITORY_NAME=bitnamicharts`.
 > **Tip**: List all releases using `helm list`
 
 ## Configuration and installation details
 
 ### Resource requests and limits
 
-Bitnami charts allow setting resource requests and limits for all containers inside the chart deployment. These are inside the `resources` value (check parameter table). Setting requests is essential for production workloads and these should be adapted to your specific use case.
+Bitnami charts allow setting resource requests and limits for all containers inside the chart deployment. These are
+inside the `resources` value (check parameter table). Setting requests is essential for production workloads and these
+should be adapted to your specific use case.
 
-To make this process easier, the chart contains the `resourcesPreset` values, which automatically sets the `resources` section according to different presets. Check these presets in [the bitnami/common chart](https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15). However, in production workloads using `resourcePreset` is discouraged as it may not fully adapt to your specific needs. Find more information on container resource management in the [official Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
+To make this process easier, the chart contains the `resourcesPreset` values, which automatically sets the `resources`
+section according to different presets. Check these presets
+in [the bitnami/common chart](https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15).
+However, in production workloads using `resourcePreset` is discouraged as it may not fully adapt to your specific needs.
+Find more information on container resource management in
+the [official Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
 
 ### [Rolling VS Immutable tags](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-understand-rolling-tags-containers-index.html)
 
-It is strongly recommended to use immutable tags in a production environment. This ensures your deployment does not change automatically if the same tag is updated with a different image.
+It is strongly recommended to use immutable tags in a production environment. This ensures your deployment does not
+change automatically if the same tag is updated with a different image.
 
-Bitnami will release a new chart updating its containers if a new version of the main container, significant changes, or critical vulnerabilities exist.
+Bitnami will release a new chart updating its containers if a new version of the main container, significant changes, or
+critical vulnerabilities exist.
 
 ### Use a different Redis&reg; version
 
-To modify the application version used in this chart, specify a different version of the image using the `image.tag` parameter and/or a different repository using the `image.repository` parameter.
+To modify the application version used in this chart, specify a different version of the image using the `image.tag`
+parameter and/or a different repository using the `image.repository` parameter.
 
 ### Cluster topology
 
-To successfully set the cluster up, it will need to have at least 3 master nodes. The total number of nodes is calculated like- `nodes = numOfMasterNodes + numOfMasterNodes * replicas`. Hence, the defaults `cluster.nodes = 6` and `cluster.replicas = 1` means, 3 master and 3 replica nodes will be deployed by the chart.
+To successfully set the cluster up, it will need to have at least 3 master nodes. The total number of nodes is
+calculated like- `nodes = numOfMasterNodes + numOfMasterNodes * replicas`. Hence, the defaults `cluster.nodes = 6` and
+`cluster.replicas = 1` means, 3 master and 3 replica nodes will be deployed by the chart.
 
-By default the Redis&reg; Cluster is not accessible from outside the Kubernetes cluster, to access the Redis&reg; Cluster from outside you have to set `cluster.externalAccess.enabled=true` at deployment time. It will create in the first installation only 6 LoadBalancer services, one for each Redis&reg; node, once you have the external IPs of each service you will need to perform an upgrade passing those IPs to the `cluster.externalAccess.service.loadbalancerIP` array.
+By default the Redis&reg; Cluster is not accessible from outside the Kubernetes cluster, to access the Redis&reg;
+Cluster from outside you have to set `cluster.externalAccess.enabled=true` at deployment time. It will create in the
+first installation only 6 LoadBalancer services, one for each Redis&reg; node, once you have the external IPs of each
+service you will need to perform an upgrade passing those IPs to the `cluster.externalAccess.service.loadbalancerIP`
+array.
 
-The replicas will be read-only replicas of the masters. By default only one service is exposed (when not using the external access mode). You will connect your client to the exposed service, regardless you need to read or write. When a write operation arrives to a replica it will redirect the client to the proper master node. For example, using `redis-cli` you will need to provide the `-c` flag for `redis-cli` to follow the redirection automatically.
+The replicas will be read-only replicas of the masters. By default only one service is exposed (when not using the
+external access mode). You will connect your client to the exposed service, regardless you need to read or write. When a
+write operation arrives to a replica it will redirect the client to the proper master node. For example, using
+`redis-cli` you will need to provide the `-c` flag for `redis-cli` to follow the redirection automatically.
 
-Using the external access mode, you can connect to any of the pods and the slaves will redirect the client in the same way as explained before, but the all the IPs will be public.
+Using the external access mode, you can connect to any of the pods and the slaves will redirect the client in the same
+way as explained before, but the all the IPs will be public.
 
-In case the master crashes, one of his slaves will be promoted to master. The slots stored by the crashed master will be unavailable until the slave finish the promotion. If a master and all his slaves crash, the cluster will be down until one of them is up again. To avoid downtime, it is possible to configure the number of Redis&reg; nodes with `cluster.nodes` and the number of replicas that will be assigned to each master with `cluster.replicas`. For example:
+In case the master crashes, one of his slaves will be promoted to master. The slots stored by the crashed master will be
+unavailable until the slave finish the promotion. If a master and all his slaves crash, the cluster will be down until
+one of them is up again. To avoid downtime, it is possible to configure the number of Redis&reg; nodes with
+`cluster.nodes` and the number of replicas that will be assigned to each master with `cluster.replicas`. For example:
 
 - `cluster.nodes=9` ( 3 master plus 2 replicas for each master)
 - `cluster.replicas=2`
 
 Providing the values above, the cluster will have 3 masters and, each master, will have 2 replicas.
 
-> NOTE: By default `cluster.init` will be set to `true` in order to initialize the Redis&reg; Cluster in the first installation. If for testing purposes you only want to deploy or upgrade the nodes but avoiding the creation of the cluster you can set `cluster.init` to `false`.
+> NOTE: By default `cluster.init` will be set to `true` in order to initialize the Redis&reg; Cluster in the first
+> installation. If for testing purposes you only want to deploy or upgrade the nodes but avoiding the creation of the
+> cluster you can set `cluster.init` to `false`.
 
 #### Adding a new node to the cluster
 
-There is a job that will be executed using a `post-upgrade` hook that will allow you to add a new node. To use it, you should provide some parameters to the upgrade:
+There is a job that will be executed using a `post-upgrade` hook that will allow you to add a new node. To use it, you
+should provide some parameters to the upgrade:
 
-- Pass as `password` the password used in the installation time. If you did not provide a password follow the instructions from the NOTES.txt to get the generated password.
+- Pass as `password` the password used in the installation time. If you did not provide a password follow the
+  instructions from the NOTES.txt to get the generated password.
 - Set the desired number of nodes at `cluster.nodes`.
 - Set the number of current nodes at `cluster.update.currentNumberOfNodes`.
 - Set to true `cluster.update.addNodes`.
@@ -113,42 +155,58 @@ The following will be an example to add one more node:
 helm upgrade --timeout 600s <release> --set "password=${REDIS_PASSWORD},cluster.nodes=7,cluster.update.addNodes=true,cluster.update.currentNumberOfNodes=6" oci://REGISTRY_NAME/REPOSITORY_NAME/redis-cluster
 ```
 
-> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io` and `REPOSITORY_NAME=bitnamicharts`.
+> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm
+> chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io`
+> and `REPOSITORY_NAME=bitnamicharts`.
 
-Where `REDIS_PASSWORD` is the password obtained with the command that appears after the first installation of the Helm Chart.
+Where `REDIS_PASSWORD` is the password obtained with the command that appears after the first installation of the Helm
+Chart.
 The cluster will continue up while restarting pods one by one as the quorum is not lost.
 
 ##### External Access
 
-If you are using external access, to add a new node you will need to perform two upgrades. First upgrade the release to add a new Redis&reg; node and to get a LoadBalancerIP service. For example:
+If you are using external access, to add a new node you will need to perform two upgrades. First upgrade the release to
+add a new Redis&reg; node and to get a LoadBalancerIP service. For example:
 
 ```console
 helm upgrade <release> --set "password=${REDIS_PASSWORD},cluster.externalAccess.enabled=true,cluster.externalAccess.service.type=LoadBalancer,cluster.externalAccess.service.loadBalancerIP[0]=<loadBalancerip-0>,cluster.externalAccess.service.loadBalancerIP[1]=<loadbalanacerip-1>,cluster.externalAccess.service.loadBalancerIP[2]=<loadbalancerip-2>,cluster.externalAccess.service.loadBalancerIP[3]=<loadbalancerip-3>,cluster.externalAccess.service.loadBalancerIP[4]=<loadbalancerip-4>,cluster.externalAccess.service.loadBalancerIP[5]=<loadbalancerip-5>,cluster.externalAccess.service.loadBalancerIP[6]=,cluster.nodes=7,cluster.init=false oci://REGISTRY_NAME/REPOSITORY_NAME/redis-cluster
 ```
 
-> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io` and `REPOSITORY_NAME=bitnamicharts`.
+> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm
+> chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io`
+> and `REPOSITORY_NAME=bitnamicharts`.
 > Important here to provide the loadBalancerIP parameters for the new nodes empty to not get an index error.
 
-As we want to add a new node, we are setting `cluster.nodes=7` and we leave empty the LoadBalancerIP for the new node, so the cluster will provide the correct one.
+As we want to add a new node, we are setting `cluster.nodes=7` and we leave empty the LoadBalancerIP for the new node,
+so the cluster will provide the correct one.
 `REDIS_PASSWORD` is the password obtained with the command that appears after the first installation of the Helm Chart.
-At this point, you will have a new Redis&reg; Pod that will remain in `crashLoopBackOff` state until we provide the LoadBalancerIP for the new service.
+At this point, you will have a new Redis&reg; Pod that will remain in `crashLoopBackOff` state until we provide the
+LoadBalancerIP for the new service.
 Now, wait until the cluster provides the new LoadBalancerIP for the new service and perform the second upgrade:
 
 ```console
 helm upgrade <release> --set "password=${REDIS_PASSWORD},cluster.externalAccess.enabled=true,cluster.externalAccess.service.type=LoadBalancer,cluster.externalAccess.service.loadBalancerIP[0]=<loadbalancerip-0>,cluster.externalAccess.service.loadBalancerIP[1]=<loadbalancerip-1>,cluster.externalAccess.service.loadBalancerIP[2]=<loadbalancerip-2>,cluster.externalAccess.service.loadBalancerIP[3]=<loadbalancerip-3>,cluster.externalAccess.service.loadBalancerIP[4]=<loadbalancerip-4>,cluster.externalAccess.service.loadBalancerIP[5]=<loadbalancerip-5>,cluster.externalAccess.service.loadBalancerIP[6]=<loadbalancerip-6>,cluster.nodes=7,cluster.init=false,cluster.update.addNodes=true,cluster.update.newExternalIPs[0]=<load-balancerip-6>" oci://REGISTRY_NAME/REPOSITORY_NAME/redis-cluster
 ```
 
-> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io` and `REPOSITORY_NAME=bitnamicharts`.
+> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm
+> chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io`
+> and `REPOSITORY_NAME=bitnamicharts`.
 
-Note we are providing the new IPs at `cluster.update.newExternalIPs`, the flag `cluster.update.addNodes=true` to enable the creation of the Job that adds a new node and now we are setting the LoadBalancerIP of the new service instead of leave it empty.
+Note we are providing the new IPs at `cluster.update.newExternalIPs`, the flag `cluster.update.addNodes=true` to enable
+the creation of the Job that adds a new node and now we are setting the LoadBalancerIP of the new service instead of
+leave it empty.
 
-> NOTE: To avoid the creation of the Job that initializes the Redis&reg; Cluster again, you will need to provide `cluster.init=false`.
+> NOTE: To avoid the creation of the Job that initializes the Redis&reg; Cluster again, you will need to provide
+`cluster.init=false`.
 
 #### Scale down the cluster
 
 To scale down the Redis&reg; Cluster, follow these steps:
 
-First perform a normal upgrade setting the `cluster.nodes` value to the desired number of nodes. It should not be less than `6` and the difference between current number of nodes and the desired should be less or equal to `cluster.replicas` to avoid removing master node an its slaves at the same time. Also it is needed to provide the password using the `password`. For example, having more than 6 nodes, to scale down the cluster to 6 nodes:
+First perform a normal upgrade setting the `cluster.nodes` value to the desired number of nodes. It should not be less
+than `6` and the difference between current number of nodes and the desired should be less or equal to
+`cluster.replicas` to avoid removing master node an its slaves at the same time. Also it is needed to provide the
+password using the `password`. For example, having more than 6 nodes, to scale down the cluster to 6 nodes:
 
 ```console
 helm upgrade --timeout 600s <release> --set "password=${REDIS_PASSWORD},cluster.nodes=6" .
@@ -156,9 +214,12 @@ helm upgrade --timeout 600s <release> --set "password=${REDIS_PASSWORD},cluster.
 
 The cluster will continue working during the update as long as the quorum is not lost.
 
-> NOTE: To avoid the creation of the Job that initializes the Redis&reg; Cluster again, you will need to provide `cluster.init=false`.
+> NOTE: To avoid the creation of the Job that initializes the Redis&reg; Cluster again, you will need to provide
+`cluster.init=false`.
 
-Once all the nodes are ready, get the list of nodes in the cluster using the `CLUSTER NODES` command. You will see references to the ones that were removed. Write down the node IDs of the nodes that show `fail`. In the following example the cluster scaled down from 7 to 6 nodes.
+Once all the nodes are ready, get the list of nodes in the cluster using the `CLUSTER NODES` command. You will see
+references to the ones that were removed. Write down the node IDs of the nodes that show `fail`. In the following
+example the cluster scaled down from 7 to 6 nodes.
 
 ```console
 redis-cli -a $REDIS_PASSWORD CLUSTER NODES
@@ -197,7 +258,8 @@ metrics.enabled=true
 
 ### Securing traffic using TLS
 
-TLS support can be enabled in the chart by specifying the `tls.` parameters while creating a release. The following parameters should be configured to properly enable the TLS support in the cluster:
+TLS support can be enabled in the chart by specifying the `tls.` parameters while creating a release. The following
+parameters should be configured to properly enable the TLS support in the cluster:
 
 - `tls.enabled`: Enable TLS support. Defaults to `false`
 - `tls.existingSecret`: Name of the secret that contains the certificates. No defaults.
@@ -225,7 +287,9 @@ tls.certCAFilename="ca.pem"
 
 ### Sidecars and Init Containers
 
-If you have a need for additional containers to run within the same pod as Redis&reg; (e.g. an additional metrics or logging exporter), you can do so via the `sidecars` config parameter. Simply define your container according to the Kubernetes container spec.
+If you have a need for additional containers to run within the same pod as Redis&reg; (e.g. an additional metrics or
+logging exporter), you can do so via the `sidecars` config parameter. Simply define your container according to the
+Kubernetes container spec.
 
 ```yaml
 sidecars:
@@ -251,7 +315,8 @@ initContainers:
 
 ### Adding extra environment variables
 
-In case you want to add extra environment variables (useful for advanced operations like custom init scripts), you can use the `extraEnvVars` property.
+In case you want to add extra environment variables (useful for advanced operations like custom init scripts), you can
+use the `extraEnvVars` property.
 
 ```yaml
 extraEnvVars:
@@ -259,15 +324,21 @@ extraEnvVars:
     value: value
 ```
 
-Alternatively, you can use a ConfigMap or a Secret with the environment variables. To do so, use the `extraEnvVarsCM` or the `extraEnvVarsSecret` values.
+Alternatively, you can use a ConfigMap or a Secret with the environment variables. To do so, use the `extraEnvVarsCM` or
+the `extraEnvVarsSecret` values.
 
 ### Metrics
 
-The chart optionally can start a metrics exporter for [prometheus](https://prometheus.io). The metrics endpoint (port 9121) is exposed in the service. Metrics can be scraped from within the cluster using something similar as the described in the [example Prometheus scrape configuration](https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml). If metrics are to be scraped from outside the cluster, the Kubernetes API proxy can be utilized to access the endpoint.
+The chart optionally can start a metrics exporter for [prometheus](https://prometheus.io). The metrics endpoint (port
+9121) is exposed in the service. Metrics can be scraped from within the cluster using something similar as the described
+in
+the [example Prometheus scrape configuration](https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml).
+If metrics are to be scraped from outside the cluster, the Kubernetes API proxy can be utilized to access the endpoint.
 
 ### Host Kernel Settings
 
-Redis&reg; may require some changes in the kernel of the host machine to work as expected, in particular increasing the `somaxconn` value and disabling transparent huge pages.
+Redis&reg; may require some changes in the kernel of the host machine to work as expected, in particular increasing the
+`somaxconn` value and disabling transparent huge pages.
 To do so, you can set up a privileged initContainer with the `sysctlImage` config values, for example:
 
 ```yaml
@@ -282,7 +353,8 @@ sysctlImage:
       echo never > /host-sys/kernel/mm/transparent_hugepage/enabled
 ```
 
-Alternatively, for Kubernetes 1.12+ you can set `podSecurityContext.sysctls` which will configure sysctls for master and slave pods. Example:
+Alternatively, for Kubernetes 1.12+ you can set `podSecurityContext.sysctls` which will configure sysctls for master and
+slave pods. Example:
 
 ```yaml
 podSecurityContext:
@@ -295,20 +367,27 @@ Note that this will not disable transparent huge tables.
 
 ### Helm Upgrade
 
-By default `cluster.init` will be set to `true` in order to initialize the Redis&reg; Cluster in the first installation. If for testing purposes you only want to deploy or upgrade the nodes but avoiding the creation of the cluster you can set `cluster.init` to `false`.
+By default `cluster.init` will be set to `true` in order to initialize the Redis&reg; Cluster in the first installation.
+If for testing purposes you only want to deploy or upgrade the nodes but avoiding the creation of the cluster you can
+set `cluster.init` to `false`.
 
 ### Backup and restore
 
-To back up and restore Redis Cluster Helm chart deployments on Kubernetes, you need to back up the persistent volumes from the source deployment and attach them to a new deployment using [Velero](https://velero.io/), a Kubernetes backup/restore tool.
+To back up and restore Redis Cluster Helm chart deployments on Kubernetes, you need to back up the persistent volumes
+from the source deployment and attach them to a new deployment using [Velero](https://velero.io/), a Kubernetes
+backup/restore tool.
 
 These are the steps you will usually follow to back up and restore your Redis Cluster database cluster data:
 
 - Install Velero on the source and destination clusters.
 - Use Velero to back up the PersistentVolumes (PVs) used by the deployment on the source cluster.
 - Use Velero to restore the backed-up PVs on the destination cluster.
-- Create a new deployment on the destination cluster with the same chart, deployment name, credentials and other parameters as the original. This new deployment will use the restored PVs and hence the original data.
+- Create a new deployment on the destination cluster with the same chart, deployment name, credentials and other
+  parameters as the original. This new deployment will use the restored PVs and hence the original data.
 
-Refer to our detailed [tutorial on backing up and restoring Redis Cluster deployments on Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-backup-restore-data-redis-cluster-kubernetes-index.html) for more information.
+Refer to our
+detailed [tutorial on backing up and restoring Redis Cluster deployments on Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/services/tutorials/GUID-backup-restore-data-redis-cluster-kubernetes-index.html)
+for more information.
 
 ### NetworkPolicy
 
@@ -327,7 +406,9 @@ With NetworkPolicy enabled, only pods with the generated client label will be
 able to connect to Redis&reg;. This label will be displayed in the output
 after a successful install.
 
-With `networkPolicy.ingressNSMatchLabels` pods from other namespaces can connect to redis. Set `networkPolicy.ingressNSPodMatchLabels` to match pod labels in matched namespace. For example, for a namespace labeled `redis=external` and pods in that namespace labeled `redis-client=true` the fields should be set:
+With `networkPolicy.ingressNSMatchLabels` pods from other namespaces can connect to redis. Set
+`networkPolicy.ingressNSPodMatchLabels` to match pod labels in matched namespace. For example, for a namespace labeled
+`redis=external` and pods in that namespace labeled `redis-client=true` the fields should be set:
 
 ```yaml
 networkPolicy:
@@ -340,15 +421,24 @@ networkPolicy:
 
 #### Setting Pod's affinity
 
-This chart allows you to set your custom affinity using the `XXX.affinity` paremeter(s). Find more information about Pod's affinity in the [kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
+This chart allows you to set your custom affinity using the `XXX.affinity` paremeter(s). Find more information about
+Pod's affinity in
+the [kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 
-As an alternative, you can use of the preset configurations for pod affinity, pod anti-affinity, and node affinity available at the [bitnami/common](https://github.com/bitnami/charts/tree/main/bitnami/common#affinities) chart. To do so, set the `XXX.podAffinityPreset`, `XXX.podAntiAffinityPreset`, or `XXX.nodeAffinityPreset` parameters.
+As an alternative, you can use of the preset configurations for pod affinity, pod anti-affinity, and node affinity
+available at the [bitnami/common](https://github.com/bitnami/charts/tree/main/bitnami/common#affinities) chart. To do
+so, set the `XXX.podAffinityPreset`, `XXX.podAntiAffinityPreset`, or `XXX.nodeAffinityPreset` parameters.
 
 ## Persistence
 
-By default, the chart mounts a [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) at the `/bitnami` path. The volume is created using dynamic volume provisioning.
+By default, the chart mounts a [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) at
+the `/bitnami` path. The volume is created using dynamic volume provisioning.
 
-If persistence is disabled, an emptyDir volume is used. **This is only recommended for testing environments** because the required information included in the nodes.conf file is missing. This file contains the relationship between the nodes and the cluster. For example, if any node is down or faulty, when it starts again, it is a self-proclaimed master and also acts as an independent node outside the main cluster as it doesn't have the necessary information to connect to it.
+If persistence is disabled, an emptyDir volume is used. **This is only recommended for testing environments** because
+the required information included in the nodes.conf file is missing. This file contains the relationship between the
+nodes and the cluster. For example, if any node is down or faulty, when it starts again, it is a self-proclaimed master
+and also acts as an independent node outside the main cluster as it doesn't have the necessary information to connect to
+it.
 
 To reconnect the failed node, run the following:
 
@@ -359,7 +449,8 @@ $ cat /bitnami/redis/data/nodes.sh
 declare -A host_2_ip_array=([redis-node-0]="192.168.192.6" [redis-node-1]="192.168.192.2" [redis-node-2]="192.168.192.4" [redis-node-3]="192.168.192.5" [redis-node-4]="192.168.192.3" [redis-node-5]="192.168.192.7" )
 ```
 
-Run redis-cli and run [CLUSTER MEET](https://redis.io/commands/cluster-meet/) to any other node in the cluster. Now the node has connected to the main cluster.
+Run redis-cli and run [CLUSTER MEET](https://redis.io/commands/cluster-meet/) to any other node in the cluster. Now the
+node has connected to the main cluster.
 
 ```console
 $ REDISCLI_AUTH=bitnami redis-cli
@@ -374,7 +465,7 @@ See [#15075](https://github.com/bitnami/charts/issues/15075)
 ### Global parameters
 
 | Name                                                  | Description                                                                                                                                                                                                                                                                                                                                                         | Value  |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
 | `global.imageRegistry`                                | Global Docker image registry                                                                                                                                                                                                                                                                                                                                        | `""`   |
 | `global.imagePullSecrets`                             | Global Docker registry secret names as an array                                                                                                                                                                                                                                                                                                                     | `[]`   |
 | `global.storageClass`                                 | Global StorageClass for Persistent Volume(s)                                                                                                                                                                                                                                                                                                                        | `""`   |
@@ -384,7 +475,7 @@ See [#15075](https://github.com/bitnami/charts/issues/15075)
 ### Redis&reg; Cluster Common parameters
 
 | Name                                                        | Description                                                                                                                                                                                                                                           | Value                           |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|
 | `nameOverride`                                              | String to partially override common.names.fullname template (will maintain the release name)                                                                                                                                                          | `""`                            |
 | `fullnameOverride`                                          | String to fully override common.names.fullname template                                                                                                                                                                                               | `""`                            |
 | `clusterDomain`                                             | Kubernetes Cluster Domain                                                                                                                                                                                                                             | `cluster.local`                 |
@@ -488,7 +579,7 @@ See [#15075](https://github.com/bitnami/charts/issues/15075)
 ### Redis&reg; statefulset parameters
 
 | Name                                           | Description                                                                                                                                                                                                                   | Value           |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
 | `redis.command`                                | Redis&reg; entrypoint string. The command `redis-server` is executed if this is not provided                                                                                                                                  | `[]`            |
 | `redis.args`                                   | Arguments for the provided command if needed                                                                                                                                                                                  | `[]`            |
 | `redis.updateStrategy.type`                    | Argo Workflows statefulset strategy type                                                                                                                                                                                      | `RollingUpdate` |
@@ -552,7 +643,7 @@ See [#15075](https://github.com/bitnami/charts/issues/15075)
 ### Cluster update job parameters
 
 | Name                                     | Description                                                                                                                                                                                                                           | Value          |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+|------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|
 | `updateJob.activeDeadlineSeconds`        | Number of seconds the Job to create the cluster will be waiting for the Nodes to be ready.                                                                                                                                            | `600`          |
 | `updateJob.command`                      | Container command (using container default if not set)                                                                                                                                                                                | `[]`           |
 | `updateJob.args`                         | Container args (using container default if not set)                                                                                                                                                                                   | `[]`           |
@@ -583,7 +674,7 @@ See [#15075](https://github.com/bitnami/charts/issues/15075)
 ### Cluster management parameters
 
 | Name                                                      | Description                                                                                                | Value          |
-| --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | -------------- |
+|-----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|----------------|
 | `cluster.init`                                            | Enable the initialization of the Redis&reg; Cluster                                                        | `true`         |
 | `cluster.nodes`                                           | The number of master nodes should always be >= 3, otherwise cluster creation will fail                     | `6`            |
 | `cluster.replicas`                                        | Number of replicas for every master in the cluster                                                         | `1`            |
@@ -604,7 +695,7 @@ See [#15075](https://github.com/bitnami/charts/issues/15075)
 ### Metrics sidecar parameters
 
 | Name                                                        | Description                                                                                                                                                                                                                       | Value                            |
-| ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+|-------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
 | `metrics.enabled`                                           | Start a side-car prometheus exporter                                                                                                                                                                                              | `false`                          |
 | `metrics.image.registry`                                    | Redis&reg; exporter image registry                                                                                                                                                                                                | `REGISTRY_NAME`                  |
 | `metrics.image.repository`                                  | Redis&reg; exporter image name                                                                                                                                                                                                    | `REPOSITORY_NAME/redis-exporter` |
@@ -653,7 +744,7 @@ See [#15075](https://github.com/bitnami/charts/issues/15075)
 ### Sysctl Image parameters
 
 | Name                                                  | Description                                                                                                                                                                                                                               | Value                      |
-| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+|-------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
 | `sysctlImage.enabled`                                 | Enable an init container to modify Kernel settings                                                                                                                                                                                        | `false`                    |
 | `sysctlImage.command`                                 | sysctlImage command to execute                                                                                                                                                                                                            | `[]`                       |
 | `sysctlImage.registry`                                | sysctlImage Init container registry                                                                                                                                                                                                       | `REGISTRY_NAME`            |
@@ -677,25 +768,37 @@ helm install my-release \
     oci://REGISTRY_NAME/REPOSITORY_NAME/redis-cluster
 ```
 
-> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io` and `REPOSITORY_NAME=bitnamicharts`.
+> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm
+> chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io`
+> and `REPOSITORY_NAME=bitnamicharts`.
 
 The above command sets the Redis&reg; server password to `secretpassword`.
 
-> NOTE: Once this chart is deployed, it is not possible to change the application's access credentials, such as usernames or passwords, using Helm. To change these application credentials after deployment, delete any persistent volumes (PVs) used by the chart and re-deploy it, or use the application's built-in administrative tools if available.
+> NOTE: Once this chart is deployed, it is not possible to change the application's access credentials, such as
+> usernames or passwords, using Helm. To change these application credentials after deployment, delete any persistent
+> volumes (PVs) used by the chart and re-deploy it, or use the application's built-in administrative tools if available.
 
-Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
+Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For
+example,
 
 ```console
 helm install my-release -f values.yaml oci://REGISTRY_NAME/REPOSITORY_NAME/redis-cluster
 ```
 
-> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io` and `REPOSITORY_NAME=bitnamicharts`.
-> **Tip**: You can use the default [values.yaml](https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster/values.yaml)
-> **Note for minikube users**: Current versions of minikube (v0.24.1 at the time of writing) provision `hostPath` persistent volumes that are only writable by root. Using chart defaults cause pod failure for the Redis&reg; pod as it attempts to write to the `/bitnami` directory. See minikube issue [1990](https://github.com/kubernetes/minikube/issues/1990) for more information.
+> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm
+> chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io`
+> and `REPOSITORY_NAME=bitnamicharts`.
+> **Tip**: You can use the
+> default [values.yaml](https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster/values.yaml)
+> **Note for minikube users**: Current versions of minikube (v0.24.1 at the time of writing) provision `hostPath`
+> persistent volumes that are only writable by root. Using chart defaults cause pod failure for the Redis&reg; pod as it
+> attempts to write to the `/bitnami` directory. See minikube
+> issue [1990](https://github.com/kubernetes/minikube/issues/1990) for more information.
 
 ## Troubleshooting
 
-Find more information about how to deal with common errors related to Bitnami's Helm charts in [this troubleshooting guide](https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues).
+Find more information about how to deal with common errors related to Bitnami's Helm charts
+in [this troubleshooting guide](https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues).
 
 ## Upgrading
 
@@ -705,56 +808,78 @@ This major bump changes the following security defaults:
 
 - `runAsGroup` is changed from `0` to `1001`
 - `readOnlyRootFilesystem` is set to `true`
-- `resourcesPreset` is changed from `none` to the minimum size working in our test suites (NOTE: `resourcesPreset` is not meant for production usage, but `resources` adapted to your use case).
+- `resourcesPreset` is changed from `none` to the minimum size working in our test suites (NOTE: `resourcesPreset` is
+  not meant for production usage, but `resources` adapted to your use case).
 - `global.compatibility.openshift.adaptSecurityContext` is changed from `disabled` to `auto`.
 
-This could potentially break any customization or init scripts used in your deployment. If this is the case, change the default values to the previous ones.
+This could potentially break any customization or init scripts used in your deployment. If this is the case, change the
+default values to the previous ones.
 
 ### To 9.0.0
 
-This major version updates the Redis&reg; docker image version used from `7.0` to `7.2`, the new stable version. There are no major changes in the chart, but we recommend checking the [Redis&reg; 7.2 release notes](https://raw.githubusercontent.com/redis/redis/7.2/00-RELEASENOTES) before upgrading.
+This major version updates the Redis&reg; docker image version used from `7.0` to `7.2`, the new stable version. There
+are no major changes in the chart, but we recommend checking
+the [Redis&reg; 7.2 release notes](https://raw.githubusercontent.com/redis/redis/7.2/00-RELEASENOTES) before upgrading.
 
 NOTE: Due to an error in our release process, versions higher or equal than 8.8.1 already use 7.2 by default.
 
 ### To 7.0.0
 
-This major release renames several values in this chart and adds missing features, in order to be inline with the rest of assets in the Bitnami charts repository.
+This major release renames several values in this chart and adds missing features, in order to be inline with the rest
+of assets in the Bitnami charts repository.
 
-Since this version performs changes in the statefulset, in order to upgrade from previous versions you need to delete the statefulset object before the upgrade.
+Since this version performs changes in the statefulset, in order to upgrade from previous versions you need to delete
+the statefulset object before the upgrade.
 
 ```console
 kubectl delete statefulset <statefulsetName>
 helm upgrade <release-name>  oci://REGISTRY_NAME/REPOSITORY_NAME/redis-cluster --set redis.password=<REDIS_PASSWORD>
 ```
 
-> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io` and `REPOSITORY_NAME=bitnamicharts`.
+> Note: You need to substitute the placeholders `REGISTRY_NAME` and `REPOSITORY_NAME` with a reference to your Helm
+> chart registry and repository. For example, in the case of Bitnami, you need to use `REGISTRY_NAME=registry-1.docker.io`
+> and `REPOSITORY_NAME=bitnamicharts`.
 
 ### To 6.0.0
 
-The cluster initialization job have been removed. Instead, the pod with index 0 from the statefulset will handle the initialization of the cluster.
+The cluster initialization job have been removed. Instead, the pod with index 0 from the statefulset will handle the
+initialization of the cluster.
 
 As consequence, the `initJob` configuration section have been removed.
 
 ### To 5.0.0
 
-This major version updates the Redis&reg; docker image version used from `6.0` to `6.2`, the new stable version. There are no major changes in the chart and there shouldn't be any breaking changes in it as `6.2` breaking changes center around some command and behaviour changes. For more information, please refer to [Redis&reg; 6.2 release notes](https://raw.githubusercontent.com/redis/redis/6.2/00-RELEASENOTES).
+This major version updates the Redis&reg; docker image version used from `6.0` to `6.2`, the new stable version. There
+are no major changes in the chart and there shouldn't be any breaking changes in it as `6.2` breaking changes center
+around some command and behaviour changes. For more information, please refer
+to [Redis&reg; 6.2 release notes](https://raw.githubusercontent.com/redis/redis/6.2/00-RELEASENOTES).
 
 ### To 4.0.0
 
-[On November 13, 2020, Helm v2 support was formally finished](https://github.com/helm/charts#status-of-the-project), this major version is the result of the required changes applied to the Helm Chart to be able to incorporate the different features added in Helm v3 and to be consistent with the Helm project itself regarding the Helm v2 EOL.
+[On November 13, 2020, Helm v2 support was formally finished](https://github.com/helm/charts#status-of-the-project),
+this major version is the result of the required changes applied to the Helm Chart to be able to incorporate the
+different features added in Helm v3 and to be consistent with the Helm project itself regarding the Helm v2 EOL.
 
 #### What changes were introduced in this major version?
 
-- Previous versions of this Helm Chart use `apiVersion: v1` (installable by both Helm 2 and 3), this Helm Chart was updated to `apiVersion: v2` (installable by Helm 3 only). [Here](https://helm.sh/docs/topics/charts/#the-apiversion-field) you can find more information about the `apiVersion` field.
+- Previous versions of this Helm Chart use `apiVersion: v1` (installable by both Helm 2 and 3), this Helm Chart was
+  updated to `apiVersion: v2` (installable by Helm 3
+  only). [Here](https://helm.sh/docs/topics/charts/#the-apiversion-field) you can find more information about the
+  `apiVersion` field.
 - Move dependency information from the *requirements.yaml* to the *Chart.yaml*
-- After running `helm dependency update`, a *Chart.lock* file is generated containing the same structure used in the previous *requirements.lock*
-- The different fields present in the *Chart.yaml* file has been ordered alphabetically in a homogeneous way for all the Bitnami Helm Charts
+- After running `helm dependency update`, a *Chart.lock* file is generated containing the same structure used in the
+  previous *requirements.lock*
+- The different fields present in the *Chart.yaml* file has been ordered alphabetically in a homogeneous way for all the
+  Bitnami Helm Charts
 
 #### Considerations when upgrading to this version
 
 - If you want to upgrade to this version from a previous one installed with Helm v3, you shouldn't face any issues
-- If you want to upgrade to this version using Helm v2, this scenario is not supported as this version doesn't support Helm v2 anymore
-- If you installed the previous version with Helm v2 and wants to upgrade to this version with Helm v3, please refer to the [official Helm documentation](https://helm.sh/docs/topics/v2_v3_migration/#migration-use-cases) about migrating from Helm v2 to v3
+- If you want to upgrade to this version using Helm v2, this scenario is not supported as this version doesn't support
+  Helm v2 anymore
+- If you installed the previous version with Helm v2 and wants to upgrade to this version with Helm v3, please refer to
+  the [official Helm documentation](https://helm.sh/docs/topics/v2_v3_migration/#migration-use-cases) about migrating
+  from Helm v2 to v3
 
 #### Useful links
 
@@ -764,11 +889,14 @@ This major version updates the Redis&reg; docker image version used from `6.0` t
 
 ### To 3.0.0
 
-This version of the chart adapts the chart to the most recent Bitnami best practices and standards. Most of the Redis&reg; parameters were moved to the `redis` values section (such as extraEnvVars, sidecars, and so on). No major issues are expected during the upgrade.
+This version of the chart adapts the chart to the most recent Bitnami best practices and standards. Most of the
+Redis&reg; parameters were moved to the `redis` values section (such as extraEnvVars, sidecars, and so on). No major
+issues are expected during the upgrade.
 
 ### To 2.0.0
 
-The version `1.0.0` was using a label in the Statefulset's volumeClaimTemplate that didn't allow to upgrade the chart. The version `2.0.0` fixed that issue. Also it adds more docs in the README.md.
+The version `1.0.0` was using a label in the Statefulset's volumeClaimTemplate that didn't allow to upgrade the chart.
+The version `2.0.0` fixed that issue. Also it adds more docs in the README.md.
 
 ## License
 

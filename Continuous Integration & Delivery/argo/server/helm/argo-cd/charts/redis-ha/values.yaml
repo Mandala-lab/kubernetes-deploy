@@ -10,7 +10,7 @@ image:
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 ## This imagePullSecrets is only for redis images
 ##
-imagePullSecrets: []
+imagePullSecrets: [ ]
 # - name: "image-pull-secret"
 
 ## replicas number for each component
@@ -31,14 +31,14 @@ ro_replicas: ""
 # priorityClassName: ""
 
 ## Custom labels for the redis pod
-labels: {}
+labels: { }
 
 ## Custom labels for redis service
-serviceLabels: {}
+serviceLabels: { }
 
 configmap:
   ## Custom labels for the redis configmap
-  labels: {}
+  labels: { }
 
 configmapTest:
   ## Image for redis-ha-configmap-test hook
@@ -46,7 +46,7 @@ configmapTest:
     repository: koalaman/shellcheck
     tag: v0.5.0
   ## Resources for the ConfigMap test pod
-  resources: {}
+  resources: { }
 
 ## Pods Service Account
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -91,25 +91,25 @@ haproxy:
     pullPolicy: IfNotPresent
 
   ## Custom labels for the haproxy pod
-  labels: {}
+  labels: { }
 
   ## Reference to one or more secrets to be used when pulling images
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ##
-  imagePullSecrets: []
+  imagePullSecrets: [ ]
   # - name: "image-pull-secret"
 
-  annotations: {}
-  resources: {}
-  emptyDir: {}
+  annotations: { }
+  resources: { }
+  emptyDir: { }
 
   ## Pod Disruption Budget
   ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
   ##
-  podDisruptionBudget: {}
+  podDisruptionBudget: { }
     # Use only one of the two
     # maxUnavailable: 1
-    # minAvailable: 1
+  # minAvailable: 1
 
   ## Enable sticky sessions to Redis nodes via HAProxy
   ## Very useful for long-living connections as in case of Sentry for example
@@ -121,8 +121,8 @@ haproxy:
   service:
     type: ClusterIP
     loadBalancerIP:
-    externalIPs: {}
-    labels: {}
+    externalIPs: { }
+    labels: { }
     annotations: null
 
     # List of CIDR's allowed to connect to LoadBalancer
@@ -151,13 +151,13 @@ haproxy:
       # Set path to redis-exporter telemtery-path
       # telemetryPath: /metrics
       # Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
-      labels: {}
+      labels: { }
       # Set timeout for scrape
       # timeout: 10s
       # Set additional properties for the ServiceMonitor endpoints such as relabeling, scrapeTimeout, tlsConfig, and more.
-      endpointAdditionalProperties: {}
+      endpointAdditionalProperties: { }
   init:
-    resources: {}
+    resources: { }
   timeout:
     connect: 4s
     server: 330s
@@ -178,32 +178,32 @@ haproxy:
       type: RuntimeDefault
     capabilities:
       drop:
-      - ALL
+        - ALL
 
   ## Whether the haproxy pods should be forced to run on separate nodes.
   hardAntiAffinity: true
 
   ## Additional affinities to add to the haproxy pods.
-  additionalAffinities: {}
+  additionalAffinities: { }
 
   ## Override all other affinity settings for the haproxy pods with a string.
   affinity: |
-
-  ## Custom config-haproxy.cfg files used to override default settings. If this file is
-  ## specified then the config-haproxy.cfg above will be ignored.
-  # customConfig: |-
+    
+    ## Custom config-haproxy.cfg files used to override default settings. If this file is
+    ## specified then the config-haproxy.cfg above will be ignored.
+    # customConfig: |-
     # Define configuration here
-  ## Place any additional configuration section to add to the default config-haproxy.cfg
-  # extraConfig: |-
-    # Define configuration here
+    ## Place any additional configuration section to add to the default config-haproxy.cfg
+    # extraConfig: |-
+  # Define configuration here
 
   ## Container lifecycle hooks
   ## Ref: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/
-  lifecycle: {}
+  lifecycle: { }
 
   ## HAProxy test related options
   tests:
-    resources: {}
+    resources: { }
 
   ## Enable HAProxy parameters to bind and consume IPv6 addresses. Enabled by default.
   IPv6:
@@ -212,11 +212,11 @@ haproxy:
   networkPolicy:
     ## whether NetworkPolicy for Haproxy should be created
     enabled: false
-    annotations: {}
-    labels: {}
+    annotations: { }
+    labels: { }
     ## user defines ingress rules that Haproxy should permit into
     ## uses the format defined in https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-    ingressRules: []
+    ingressRules: [ ]
       # - selectors:
       #   - namespaceSelector:
       #       matchLabels:
@@ -229,10 +229,10 @@ haproxy:
       #     - port: 6379
       #       protocol: TCP
       #     - port: 26379
-      #       protocol: TCP
+    #       protocol: TCP
 
     ## user can define egress rules too, uses the same structure as ingressRules
-    egressRules: []
+    egressRules: [ ]
 
 ## Role Based Access
 ## Ref: https://kubernetes.io/docs/admin/authorization/rbac/
@@ -246,13 +246,13 @@ rbac:
 ##
 sysctlImage:
   enabled: false
-  command: []
+  command: [ ]
   registry: docker.io
   repository: busybox
   tag: 1.34.1
   pullPolicy: Always
   mountHostSys: false
-  resources: {}
+  resources: { }
 
 ## Use an alternate scheduler, e.g. "stork".
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
@@ -311,12 +311,12 @@ redis:
     rdbcompression: "yes"
     rdbchecksum: "yes"
 
-  ## Custom redis.conf files used to override default settings. If this file is
-  ## specified then the redis.config above will be ignored.
-  # customConfig: |-
+    ## Custom redis.conf files used to override default settings. If this file is
+    ## specified then the redis.config above will be ignored.
+    # customConfig: |-
     # Define configuration here
 
-  resources: {}
+  resources: { }
   #  requests:
   #    memory: 200Mi
   #    cpu: 100m
@@ -328,10 +328,10 @@ redis:
   lifecycle:
     preStop:
       exec:
-        command: ["/bin/sh", "/readonly-config/trigger-failover-if-master.sh"]
+        command: [ "/bin/sh", "/readonly-config/trigger-failover-if-master.sh" ]
 
   ## annotations for the redis statefulset
-  annotations: {}
+  annotations: { }
 
   ## updateStrategy for Redis StatefulSet
   ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
@@ -339,7 +339,7 @@ redis:
     type: RollingUpdate
 
   ## additional volumeMounts for Redis container
-  extraVolumeMounts: []
+  extraVolumeMounts: [ ]
   #  - name: empty
   #    mountPath: /empty
 
@@ -398,12 +398,12 @@ sentinel:
     parallel-syncs: 5
     maxclients: 10000
 
-  ## Custom sentinel.conf files used to override default settings. If this file is
-  ## specified then the sentinel.config above will be ignored.
-  # customConfig: |-
+    ## Custom sentinel.conf files used to override default settings. If this file is
+    ## specified then the sentinel.config above will be ignored.
+    # customConfig: |-
     # Define configuration here
 
-  resources: {}
+  resources: { }
   #  requests:
   #    memory: 200Mi
   #    cpu: 100m
@@ -412,10 +412,10 @@ sentinel:
 
   ## Container lifecycle hooks
   ## Ref: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/
-  lifecycle: {}
+  lifecycle: { }
 
   ## additional volumeMounts for Sentinel container
-  extraVolumeMounts: []
+  extraVolumeMounts: [ ]
   #  - name: empty
   #    mountPath: /empty
 
@@ -432,7 +432,7 @@ containerSecurityContext:
     type: RuntimeDefault
   capabilities:
     drop:
-    - ALL
+      - ALL
 
   ## Assuming your kubelet allows it, you can the following instructions to configure
   ## specific sysctl parameters
@@ -445,7 +445,7 @@ containerSecurityContext:
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-nodeSelector: {}
+nodeSelector: { }
 
 ## Whether the Redis server pods should be forced to run on separate nodes.
 ## This is accomplished by setting their AntiAffinity with requiredDuringSchedulingIgnoredDuringExecution as opposed to preferred.
@@ -468,7 +468,7 @@ hardAntiAffinity: true
 ##
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ##
-additionalAffinities: {}
+additionalAffinities: { }
 
 ## Override all other affinity settings for the Redis server pods with a string.
 ##
@@ -520,10 +520,10 @@ exporter:
   # sslEnabled: true
 
   # cpu/memory resource limits/requests
-  resources: {}
+  resources: { }
 
   # Additional args for redis exporter
-  extraArgs: {}
+  extraArgs: { }
 
   # Used to mount a LUA-Script via config map and use it for metrics-collection
   # script: |
@@ -560,11 +560,11 @@ exporter:
     # Set path to redis-exporter telemtery-path
     # telemetryPath: /metrics
     # Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
-    labels: {}
+    labels: { }
     # Set timeout for scrape
     # timeout: 10s
     # Set additional properties for the ServiceMonitor endpoints such as relabeling, scrapeTimeout, tlsConfig, and more.
-    endpointAdditionalProperties: {}
+    endpointAdditionalProperties: { }
 
   # prometheus exporter SCANS redis db which can take some time
   # allow different probe settings to not let container crashloop
@@ -579,10 +579,10 @@ exporter:
     periodSeconds: 15
     successThreshold: 2
 
-podDisruptionBudget: {}
+podDisruptionBudget: { }
   # Use only one of the two
   # maxUnavailable: 1
-  # minAvailable: 1
+# minAvailable: 1
 
 ## Configures redis with AUTH (requirepass & masterauth conf params)
 auth: false
@@ -608,10 +608,10 @@ persistentVolume:
   accessModes:
     - ReadWriteOnce
   size: 10Gi
-  annotations: {}
-  labels: {}
+  annotations: { }
+  labels: { }
 init:
-  resources: {}
+  resources: { }
 
 # To use a hostPath for data, set persistentVolume.enabled to false
 # and define hostPath.path.
@@ -625,7 +625,7 @@ hostPath:
   # security context
   chown: true
 
-emptyDir: {}
+emptyDir: { }
 
 tls:
   ## Fill the name of secret if you want to use your own TLS certificates.
@@ -674,13 +674,13 @@ prometheusRule:
   # prometheusRule.enabled -- If true, creates a Prometheus Operator PrometheusRule.
   enabled: false
   # prometheusRule.additionalLabels -- Additional labels to be set in metadata.
-  additionalLabels: {}
+  additionalLabels: { }
   # prometheusRule.namespace -- Namespace which Prometheus is running in.
   namespace:
   # prometheusRule.interval -- How often rules in the group are evaluated (falls back to `global.evaluation_interval` if not set).
   interval: 10s
   # prometheusRule.rules -- Rules spec template (see https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#rule).
-  rules: []
+  rules: [ ]
     # Example:
     # - alert: RedisPodDown
     #   expr: |
@@ -690,30 +690,30 @@ prometheusRule:
     #     severity: critical
     #   annotations:
     #     description: Redis pod {{ "{{ $labels.pod }}" }} is down
-    #     summary: Redis pod {{ "{{ $labels.pod }}" }} is down
+  #     summary: Redis pod {{ "{{ $labels.pod }}" }} is down
 
-extraInitContainers: []
+extraInitContainers: [ ]
 #  - name: extraInit
 #    image: alpine
-extraContainers: []
+extraContainers: [ ]
 #  - name: extra
 #    image: alpine
-extraVolumes: []
+extraVolumes: [ ]
 #  - name: empty
 #    emptyDir: {}
 
 # Labels added here are applied to all created resources
-extraLabels: {}
+extraLabels: { }
 
 networkPolicy:
   ## whether NetworkPolicy for Redis StatefulSets should be created
   ## when enabled, inter-Redis connectivity is created
   enabled: false
-  annotations: {}
-  labels: {}
+  annotations: { }
+  labels: { }
   ## user defines ingress rules that Redis should permit into
   ## uses the format defined in https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-  ingressRules: []
+  ingressRules: [ ]
     # - selectors:
     #   - namespaceSelector:
     #       matchLabels:
@@ -726,11 +726,11 @@ networkPolicy:
     #     - port: 6379
     #       protocol: TCP
     #     - port: 26379
-    #       protocol: TCP
+  #       protocol: TCP
 
   ## user can define egress rules too, uses the same structure as ingressRules
-  egressRules: []
+  egressRules: [ ]
 
 splitBrainDetection:
   interval: 60
-  resources: {}
+  resources: { }

@@ -3,7 +3,7 @@
 # Source Config 3: https://juejin.cn/post/6993723824667639845
 
 global:
-#  enable: true
+  #  enable: true
   name: consul
   enablePodSecurityPolicies: false # true创建 Pod 安全策略, 防止consul client pod存储到同一个目录, 与client.dataDirectoryHostPath一起使用
 
@@ -23,7 +23,7 @@ ui:
   enable: true
   service:
     enable: true
-#    type: LoadBalancer
+    #    type: LoadBalancer
     type: NodePort
     port:
       http: 80
@@ -48,7 +48,7 @@ server:
   #storageClass: "local-path" # 使用Kubernetes集群的默认 StorageClass 用于服务器的 StatefulSet 存储的 StorageClass。如果要自动创建存储，则必须能够动态预配它。例如，要使用 local（ https://kubernetes.io/docs/concepts/storage/storage-classes/#local） 存储类，需要手动创建 PersistentVolumeClaims。值 null 将使用 Kubernetes 集群的默认 StorageClass。如果默认 StorageClass 不存在，则需要创建一个。请参阅服务器性能要求文档的读/写调整部分，了解有关选择高性能存储类的注意事项
   exposeService:
     enabled: true
-#    type: LoadBalancer
+    #    type: LoadBalancer
     type: NodePort #参考https://developer.hashicorp.com/consul/docs/k8s/helm#v-server-exposeservice-nodeport
     nodePort:
       http:

@@ -23,10 +23,10 @@ spec:
   clusterIP: None
   type: ClusterIP
   ports:
-  - name: hubble-metrics
-    port: {{ .Values.hubble.metrics.port }}
-    protocol: TCP
-    targetPort: hubble-metrics
+    - name: hubble-metrics
+      port: {{ .Values.hubble.metrics.port }}
+      protocol: TCP
+      targetPort: hubble-metrics
   selector:
     k8s-app: cilium
 {{- end }}

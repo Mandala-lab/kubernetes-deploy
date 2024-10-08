@@ -81,7 +81,7 @@ spec:
           securityContext:
             privileged: true
             capabilities:
-              add: ["SYS_ADMIN"]
+              add: [ "SYS_ADMIN" ]
             allowPrivilegeEscalation: true
           image: docker.io/juestnow/nfsplugin:v4.4.0
           args:

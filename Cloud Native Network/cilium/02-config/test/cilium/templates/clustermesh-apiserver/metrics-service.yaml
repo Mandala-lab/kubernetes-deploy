@@ -21,22 +21,22 @@ spec:
   type: ClusterIP
   ports:
   {{- if .Values.clustermesh.apiserver.metrics.enabled }}
-  - name: apiserv-metrics
-    port: {{ .Values.clustermesh.apiserver.metrics.port }}
-    protocol: TCP
-    targetPort: apiserv-metrics
+    - name: apiserv-metrics
+      port: {{ .Values.clustermesh.apiserver.metrics.port }}
+      protocol: TCP
+      targetPort: apiserv-metrics
   {{- end }}
   {{- if $kvstoreMetricsEnabled }}
-  - name: kvmesh-metrics
-    port: {{ .Values.clustermesh.apiserver.metrics.kvstoremesh.port }}
-    protocol: TCP
-    targetPort: kvmesh-metrics
+    - name: kvmesh-metrics
+      port: {{ .Values.clustermesh.apiserver.metrics.kvstoremesh.port }}
+      protocol: TCP
+      targetPort: kvmesh-metrics
   {{- end }}
   {{- if .Values.clustermesh.apiserver.metrics.etcd.enabled }}
-  - name: etcd-metrics
-    port: {{ .Values.clustermesh.apiserver.metrics.etcd.port }}
-    protocol: TCP
-    targetPort: etcd-metrics
+    - name: etcd-metrics
+      port: {{ .Values.clustermesh.apiserver.metrics.etcd.port }}
+      protocol: TCP
+      targetPort: etcd-metrics
   {{- end }}
   selector:
     k8s-app: clustermesh-apiserver

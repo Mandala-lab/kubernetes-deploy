@@ -61,7 +61,7 @@ spec:
   tls:
     {{- if .Values.server.ingress.tls }}
     - hosts:
-      - {{ .Values.server.ingress.hostname | default .Values.global.domain }}
+        - {{ .Values.server.ingress.hostname | default .Values.global.domain }}
       secretName: argocd-server-tls
     {{- end }}
     {{- with .Values.server.ingress.extraTls }}
